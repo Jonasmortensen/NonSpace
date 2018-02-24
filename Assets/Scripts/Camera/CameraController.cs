@@ -2,15 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CameraMovementMode {
-    FRONT, TOP, ORBIT, FORWARD
+public enum CameraViewMode {
+    FRONT, TOP, LEFT
+}
+
+public enum CameraRotationMode {
+    IDLE, SLOW, FAST
+}
+
+public enum CameraMovementnMode {
+    IDLE, FORWARDS, BACKWARDS
 }
 
 public class CameraController : MonoBehaviour {
 
     private Camera mainCam;
-    private CameraMovementMode movementMode;
+    private CameraViewMode viewMode;
+
     private Vector3 goalPos;
+    private Vector3 startPos;
+    private bool inTransition;
+    private float elapsedTime;
+    private float transitionTime;
 
 
 	// Use this for initialization
@@ -19,25 +32,60 @@ public class CameraController : MonoBehaviour {
         if(mainCam == null) {
             throw new System.NullReferenceException("CameraController needs a child camera");
         }
+
     }
 	
 	// Update is called once per frame
 	void Update () {
-        mainCam.transform.LookAt(transform.position);
-	}
+        if (inTransition) {
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / transitionTime;
+            t = t * t * t * (t * (6f * t - 15f) + 10f);
+            mainCam.transform.position = Vector3.Lerp(startPos, goalPos, t);
+            if (elapsedTime > transitionTime) {
+                inTransition = false;
+            }
+        }
 
-    public void SetMovementMode(CameraMovementMode movementMode) {
+        mainCam.transform.LookAt(transform.position);
+    }
+
+    public void SetMovementMode(CameraViewMode movementMode) {
         switch (movementMode) {
-            case CameraMovementMode.FRONT:
-                goalPos = transform.position - (transform.forward * 2);
+            case CameraViewMode.FRONT:
+                goalPos = transform.position - (transform.forward * 10) + (transform.up * 5);
                 break;
-            case CameraMovementMode.TOP:
-                goalPos = transform.position + (transform.up * 2);
+            case CameraViewMode.TOP:
+                goalPos = transform.position + (transform.up * 10);
                 break;
         }
     }
 
-    public void InstantPositionUpdate() {
-        transform.position = goalPos;
+    public void SetMovementMode(CameraViewMode viewMode, CameraRotationMode rotationMode, CameraMovementnMode movementMode) {
+        switch (viewMode) {
+            case CameraViewMode.FRONT:
+                goalPos = transform.position - (transform.forward * 10) + (transform.up * 5);
+                break;
+            case CameraViewMode.TOP:
+                goalPos = transform.position + (transform.up * 10);
+                break;
+            case CameraViewMode.LEFT:
+                goalPos = transform.position - (transform.right * 10 + transform.up * 5);
+                break;
+        }
+    }
+
+    public void UpdatePosition() {
+        mainCam.transform.position = goalPos;
+        if(inTransition) {
+            inTransition = false;
+        }
+    }
+
+    public void UpdatePosition(float time) {
+        elapsedTime = 0;
+        transitionTime = time;
+        startPos = mainCam.transform.position;
+        inTransition = true;
     }
 }
