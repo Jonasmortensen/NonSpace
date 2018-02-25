@@ -15,6 +15,7 @@ public enum CameraMovementnMode {
 }
 
 public class CameraController : MonoBehaviour {
+    public float transitionTime;
 
     private Camera mainCam;
     public CameraViewMode viewMode;
@@ -25,9 +26,11 @@ public class CameraController : MonoBehaviour {
     private Vector3 startPos;
     private Quaternion startRot;
     private Quaternion goalRot;
-    public bool inTransition;
+    public byte inTransition;
     private float elapsedTime;
-    private float transitionTime;
+    private float goalConstantRotationSpeed;
+    private float startConstantRotationSpeed;
+    private float currentConstantRotationSpeed;
 
 
 	// Use this for initialization
@@ -42,19 +45,31 @@ public class CameraController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (inTransition) {
+        if (inTransition > 0) {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / transitionTime;
             t = t * t * t * (t * (6f * t - 15f) + 10f);
-            mainCam.transform.position = Vector3.Lerp(startPos, goalPos, t);
-            mainCam.transform.rotation = Quaternion.Lerp(startRot, goalRot, t);
+
+            if((inTransition & 1) > 0) {
+                mainCam.transform.localPosition = Vector3.Lerp(startPos, goalPos, t);
+                mainCam.transform.localRotation = Quaternion.Lerp(startRot, goalRot, t);
+            }
+            if((inTransition & 2) > 0) {
+                currentConstantRotationSpeed = Mathf.Lerp(startConstantRotationSpeed, goalConstantRotationSpeed, t);
+            }
 
             if (elapsedTime > transitionTime) {
-                inTransition = false;
+                if (inTransition == 1) {
+                    inTransition = 0;
+                    //SetRotationMode(rotationMode);
+                } else {
+                    inTransition = 0;
+                }
+
             }
         }
-        UpdateRotation();
-        //mainCam.transform.LookAt(transform.position);
+
+        transform.Rotate(Vector3.up * Time.deltaTime * currentConstantRotationSpeed);
     }
 
     public void SetViewMode(CameraViewMode _viewMode) {
@@ -65,7 +80,7 @@ public class CameraController : MonoBehaviour {
                 goalRot = Quaternion.Euler(new Vector3(10, 0, 0));
                 break;
             case CameraViewMode.TOP:
-                goalPos = transform.position + (Vector3.up * 10);
+                goalPos = transform.position + (Vector3.up * 12);
                 goalRot = Quaternion.Euler(new Vector3(90, 0, 0));
                 break;
             case CameraViewMode.LEFT:
@@ -77,6 +92,20 @@ public class CameraController : MonoBehaviour {
 
     public void SetRotationMode(CameraRotationMode _rotMode) {
         rotationMode = _rotMode;
+        startConstantRotationSpeed = currentConstantRotationSpeed;
+        switch (_rotMode) {
+            case CameraRotationMode.CLOCKWISE:
+                goalConstantRotationSpeed += 15;
+                break;
+            case CameraRotationMode.COUNTER_CLOCKWISE:
+                goalConstantRotationSpeed += -15;
+                break;
+            case CameraRotationMode.IDLE:
+                goalConstantRotationSpeed = 0;
+                break;
+        }
+        inTransition = 2;
+        elapsedTime = 0;
     }
 
     public void SetCameraMode(CameraViewMode _viewMode, CameraRotationMode _rotationMode, CameraMovementnMode _movementMode) {
@@ -86,29 +115,28 @@ public class CameraController : MonoBehaviour {
     public void UpdateRotation() {
         switch (rotationMode) {
             case CameraRotationMode.CLOCKWISE:
-                transform.Rotate(Vector3.up * Time.deltaTime * 10);
+                transform.Rotate(Vector3.up * Time.deltaTime * 15);
                 break;
             case CameraRotationMode.COUNTER_CLOCKWISE:
-                transform.Rotate(-Vector3.up * Time.deltaTime * 10);
+                transform.Rotate(-Vector3.up * Time.deltaTime * 15);
                 break;
+        }
+    }
+
+    public void UpdatePositionInstant() {
+        mainCam.transform.position = goalPos;
+        if(inTransition > 0) {
+            inTransition = 0;
         }
     }
 
     public void UpdatePosition() {
-        mainCam.transform.position = goalPos;
-        if(inTransition) {
-            inTransition = false;
-        }
-    }
-
-    public void UpdatePosition(float time) {
-        startPos = mainCam.transform.position;
-        startRot = mainCam.transform.rotation;
+        startPos = mainCam.transform.localPosition;
+        startRot = mainCam.transform.localRotation;
         if (Vector3.Distance(startPos, goalPos) < 0.01f) {
             return;
         }
         elapsedTime = 0;
-        transitionTime = time;
-        inTransition = true;
+        inTransition = 1;
     }
 }
