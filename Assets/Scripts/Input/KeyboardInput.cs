@@ -13,17 +13,26 @@ public class KeyboardInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if(Input.GetKeyDown(KeyCode.Q)) {
+		if(Input.GetKeyDown(KeyCode.Keypad7)) {
             camController.SetViewMode(CameraViewMode.FRONT);
             camController.UpdatePosition(transitionTime);
         }
-        if (Input.GetKeyDown(KeyCode.W)) {
+        if (Input.GetKeyDown(KeyCode.Keypad8)) {
             camController.SetViewMode(CameraViewMode.TOP);
             camController.UpdatePosition(transitionTime);
         }
-        if (Input.GetKeyDown(KeyCode.E)) {
+        if (Input.GetKeyDown(KeyCode.Keypad9)) {
             camController.SetViewMode(CameraViewMode.LEFT);
             camController.UpdatePosition(transitionTime);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad4)) {
+            camController.SetRotationMode(CameraRotationMode.IDLE);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad5)) {
+            camController.SetRotationMode(CameraRotationMode.CLOCKWISE);
+        }
+        if (Input.GetKeyDown(KeyCode.Keypad6)) {
+            camController.SetRotationMode(CameraRotationMode.COUNTER_CLOCKWISE);
         }
     }
 }

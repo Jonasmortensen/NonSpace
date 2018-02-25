@@ -7,7 +7,7 @@ public enum CameraViewMode {
 }
 
 public enum CameraRotationMode {
-    IDLE, SLOW, FAST
+    IDLE, CLOCKWISE, COUNTER_CLOCKWISE
 }
 
 public enum CameraMovementnMode {
@@ -17,9 +17,9 @@ public enum CameraMovementnMode {
 public class CameraController : MonoBehaviour {
 
     private Camera mainCam;
-    private CameraViewMode viewMode;
-    private CameraRotationMode rotationMode;
-    private CameraMovementnMode movementMode;
+    public CameraViewMode viewMode;
+    public CameraRotationMode rotationMode;
+    public CameraMovementnMode movementMode;
 
     private Vector3 goalPos;
     private Vector3 startPos;
@@ -36,6 +36,7 @@ public class CameraController : MonoBehaviour {
         if(mainCam == null) {
             throw new System.NullReferenceException("CameraController needs a child camera");
         }
+        rotationMode = CameraRotationMode.IDLE;
 
     }
 	
@@ -46,33 +47,49 @@ public class CameraController : MonoBehaviour {
             float t = elapsedTime / transitionTime;
             t = t * t * t * (t * (6f * t - 15f) + 10f);
             mainCam.transform.position = Vector3.Lerp(startPos, goalPos, t);
-            mainCam.transform.localRotation = Quaternion.Lerp(startRot, goalRot, t);
+            mainCam.transform.rotation = Quaternion.Lerp(startRot, goalRot, t);
 
             if (elapsedTime > transitionTime) {
                 inTransition = false;
             }
         }
-
+        UpdateRotation();
         //mainCam.transform.LookAt(transform.position);
     }
 
     public void SetViewMode(CameraViewMode _viewMode) {
-        SetCameraMode(_viewMode, rotationMode, movementMode);
-    }
-
-    public void SetCameraMode(CameraViewMode _viewMode, CameraRotationMode _rotationMode, CameraMovementnMode _movementMode) {
+        viewMode = _viewMode;
         switch (_viewMode) {
             case CameraViewMode.FRONT:
-                goalPos = transform.position - (transform.forward * 10) + (transform.up * 5);
+                goalPos = transform.position - (Vector3.forward * 10) + (transform.up * 5);
                 goalRot = Quaternion.Euler(new Vector3(10, 0, 0));
                 break;
             case CameraViewMode.TOP:
-                goalPos = transform.position + (transform.up * 10);
+                goalPos = transform.position + (Vector3.up * 10);
                 goalRot = Quaternion.Euler(new Vector3(90, 0, 0));
                 break;
             case CameraViewMode.LEFT:
-                goalPos = transform.position - (transform.right * 10) + transform.up * 5;
+                goalPos = transform.position - (Vector3.right * 10) + transform.up * 5;
                 goalRot = Quaternion.Euler(new Vector3(10, 90, 0));
+                break;
+        }
+    }
+
+    public void SetRotationMode(CameraRotationMode _rotMode) {
+        rotationMode = _rotMode;
+    }
+
+    public void SetCameraMode(CameraViewMode _viewMode, CameraRotationMode _rotationMode, CameraMovementnMode _movementMode) {
+        
+    }
+
+    public void UpdateRotation() {
+        switch (rotationMode) {
+            case CameraRotationMode.CLOCKWISE:
+                transform.Rotate(Vector3.up * Time.deltaTime * 10);
+                break;
+            case CameraRotationMode.COUNTER_CLOCKWISE:
+                transform.Rotate(-Vector3.up * Time.deltaTime * 10);
                 break;
         }
     }
@@ -86,7 +103,7 @@ public class CameraController : MonoBehaviour {
 
     public void UpdatePosition(float time) {
         startPos = mainCam.transform.position;
-        startRot = mainCam.transform.localRotation;
+        startRot = mainCam.transform.rotation;
         if (Vector3.Distance(startPos, goalPos) < 0.01f) {
             return;
         }
