@@ -14,24 +14,27 @@ public class KeyboardInput : MonoBehaviour {
 	void Update () {
 		if(Input.GetKeyDown(KeyCode.Keypad7)) {
             camController.SetViewMode(CameraViewMode.FRONT);
-            camController.UpdatePosition();
+            camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Keypad8)) {
             camController.SetViewMode(CameraViewMode.TOP);
-            camController.UpdatePosition();
+            camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Keypad9)) {
             camController.SetViewMode(CameraViewMode.LEFT);
-            camController.UpdatePosition();
+            camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Keypad4)) {
-            camController.SetRotationMode(CameraRotationMode.CLOCKWISE);
+            camController.SetRotationMode(CameraRotationMode.IDLE);
+            camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Keypad5)) {
-            camController.SetRotationMode(CameraRotationMode.IDLE);
+            camController.SetRotationMode(CameraRotationMode.ROTATE_DOLLY);
+            camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Keypad6)) {
-            camController.SetRotationMode(CameraRotationMode.COUNTER_CLOCKWISE);
+            camController.SetRotationMode(CameraRotationMode.ROTATE_CAM);
+            camController.StartTransition();
         }
     }
 }
