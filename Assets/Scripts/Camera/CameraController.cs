@@ -77,12 +77,10 @@ public class CameraController : MonoBehaviour {
             }
             if((transitionType & 4) > 0) {
                 transform.rotation = Quaternion.Lerp(dollyStartRot, dollyGoalRot, t);
-                //mainCam.transform.rotation = Quaternion.Lerp(camStartRot, camGoalRot, t);
             }
 
             if (elapsedTime > transitionTime) {
                 inTransition = false;
-
             }
         }
 
