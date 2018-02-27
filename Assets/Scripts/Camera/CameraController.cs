@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum CameraViewMode {
-    FRONT, TOP, LEFT
+    FRONT, TOP, LEFT, BOT
 }
 
 public enum CameraRotationMode {
@@ -57,7 +57,6 @@ public class CameraController : MonoBehaviour {
             throw new System.NullReferenceException("CameraController needs a child camera");
         }
         rotationMode = CameraRotationMode.IDLE;
-
     }
 	
 	// Update is called once per frame
@@ -104,6 +103,10 @@ public class CameraController : MonoBehaviour {
             case CameraViewMode.LEFT:
                 goalPos = transform.position - (Vector3.right * 10) + transform.up * 5;
                 goalAngle = Quaternion.Euler(new Vector3(10, 90, 0));
+                break;
+            case CameraViewMode.BOT:
+                goalPos = transform.position + (-Vector3.up * 12);
+                goalAngle = Quaternion.Euler(new Vector3(-90, 0, 0));
                 break;
         }
         if (Vector3.Distance(startPos, goalPos) < 0.01f && Quaternion.Angle(startAngle, goalAngle) < 1) {
