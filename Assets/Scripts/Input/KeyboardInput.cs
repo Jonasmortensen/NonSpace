@@ -75,13 +75,15 @@ public class KeyboardInput : MonoBehaviour {
         //SPAWN
         if (Input.GetKeyDown(KeyCode.Z)) {
             //Left
-            spawner.spawn();
+            spawner.spawn(SpawnDirection.LEFT);
         }
         if (Input.GetKeyDown(KeyCode.X)) {
             //Center
+            spawner.spawn(SpawnDirection.CENTER);
         }
         if (Input.GetKeyDown(KeyCode.C)) {
-            //Righ
+            //Right
+            spawner.spawn(SpawnDirection.RIGHT);
         }
         if (Input.GetKeyDown(KeyCode.V)) {
             //Fill

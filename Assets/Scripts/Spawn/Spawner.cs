@@ -44,7 +44,7 @@ public class Spawner : MonoBehaviour {
             currentModel.transform.parent = modelPool.transform;
         }
 
-        spawnProfile = new TriangleSP(5);
+        spawnProfile = new TriangleSP(3, 15);
     }
 	
 	// Update is called once per frame
@@ -66,14 +66,14 @@ public class Spawner : MonoBehaviour {
         */
     }
 
-    public bool spawn() {
+    public bool spawn(SpawnDirection spawnDirection) {
         if(liveCount >= objectLimit) {
             liveCount = objectLimit;
             return false;
         }
 
         Transform model = modelPool.transform.GetChild(0);
-        model.position = spawnProfile.GetNextPosition(SpawnDirection.CENTER);//GetSpawnPosition(SpawnMode.TRIANGLE, liveCount);
+        model.position = spawnProfile.GetNextPosition(spawnDirection);
         Scale scaler = model.gameObject.AddComponent<Scale>();
         scaler.moveIn(1f, liveModels.transform);
         liveCount++;
