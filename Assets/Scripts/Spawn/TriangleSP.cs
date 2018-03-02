@@ -26,7 +26,7 @@ public class TriangleSP : ISpawnProfile {
     }
 
 
-    //THIS IS PRETTY SLOW
+    //TODO: THIS IS PRETTY SLOW
     public Vector3 GetNextPosition(SpawnDirection direction) {
         if(models >= maxModels) {
             //Fix this case
