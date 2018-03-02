@@ -10,7 +10,7 @@ public class TriangleSP : ISpawnProfile {
     private int models;
     private int maxModels;
     private int numOfRows;
-    private int currentIndex;
+    //private int currentIndex;
     private float size;
     private bool[] occupations;
 
@@ -61,6 +61,7 @@ public class TriangleSP : ISpawnProfile {
         models++;
         return pos;
     }
+
 
     private Vector3 indexToPosition(int i) {
         int row = (int) ((-1 + Mathf.Sqrt(1 + 8 * i)) / 2);

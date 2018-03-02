@@ -87,9 +87,11 @@ public class KeyboardInput : MonoBehaviour {
         }
         if (Input.GetKeyDown(KeyCode.V)) {
             //Fill
+            spawner.Fill();
         }
         if (Input.GetKeyDown(KeyCode.N)) {
             //Clear
+            spawner.Clear();
         }
     }
 }
