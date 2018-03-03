@@ -20,9 +20,6 @@ public class Spawner : MonoBehaviour {
     private int liveCount;
     private ISpawnProfile spawnProfile;
 
-    //Grid order
-    private static int[] gridOrder = { 4, 7, 6, 8, 3, 5, 1, 0, 2 };
-
     // Use this for initialization
     void Start () {
         //Create the pool for dead models
