@@ -8,22 +8,22 @@ public class NoirPreset : MonoBehaviour, IScenePreset {
     private Light[] lights;
     private RainController rain;
 
-    public Color mainColor;
-    public Color secondayColor;
+    public Color CanvasColor;
+    public Color SpotlightColor;
     [Range(0, 1)]
-    public float uniqueProperty1;
+    public float RainAmount;
     private float uniqueProperty2;
 
     public void SetMainColor(Color color) {
-        mainColor = color;
+        CanvasColor = color;
     }
 
     public void SetSecondaryColor(Color color) {
-        secondayColor = color;
+        SpotlightColor = color;
     }
 
     public void SetUniqueProperty1(float value) {
-        uniqueProperty1 = value;
+        RainAmount = value;
     }
 
     public void SetUniqueProperty2(float value) {
@@ -31,7 +31,7 @@ public class NoirPreset : MonoBehaviour, IScenePreset {
     }
 
     public Color GetMainColor() {
-        return mainColor;
+        return CanvasColor;
     }
 
     // Use this for initialization
@@ -48,9 +48,9 @@ public class NoirPreset : MonoBehaviour, IScenePreset {
 	// Update is called once per frame
 	void Update () {
         foreach(Light light in lights) {
-            light.color = secondayColor;
+            light.color = SpotlightColor;
         }
 
-        rain.SetEmission(uniqueProperty1);
+        rain.SetEmission(RainAmount);
 	}
 }
