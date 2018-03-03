@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NoirPreset : MonoBehaviour, IScenePreset {
-    //private GameObject canvas;
     private Light[] lights;
     private RainController rain;
 
