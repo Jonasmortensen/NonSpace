@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class NoirPreset : MonoBehaviour, IScenePreset {
     //private GameObject canvas;
-    private Light spotLight;
+    private Light[] lights;
 
     public Color mainColor;
     public Color secondayColor;
@@ -35,7 +35,7 @@ public class NoirPreset : MonoBehaviour, IScenePreset {
     // Use this for initialization
     void Start () {
         GameObject canvas = transform.Find("Canvas").gameObject;
-        spotLight = transform.Find("Spotlight").GetComponent<Light>();
+        lights = GetComponentsInChildren<Light>();
         for(int i = 0; i < canvas.transform.childCount; i++) {
             var bgFader = canvas.transform.GetChild(i).gameObject.AddComponent<BackgroundFader>();
             bgFader.preset = this;
@@ -44,6 +44,8 @@ public class NoirPreset : MonoBehaviour, IScenePreset {
 	
 	// Update is called once per frame
 	void Update () {
-        spotLight.color = secondayColor;
+        foreach(Light light in lights) {
+            light.color = secondayColor;
+        }
 	}
 }
