@@ -10,7 +10,7 @@ public class BackgroundFader : MonoBehaviour {
     private Light glow;
     private Renderer rend;
 
-    public Color emissionColor;
+    public NoirPreset preset;
 
 	// Use this for initialization
 	void Start () {
@@ -24,20 +24,17 @@ public class BackgroundFader : MonoBehaviour {
         Vector2 wallOrientation = new Vector2(transform.up.x, transform.up.z);
         Vector2 camOrientation = new Vector2(cam.forward.x, cam.forward.z);
 
-        float AngleToScreen = Mathf.Max(- Vector2.Dot(wallOrientation.normalized, camOrientation.normalized), 0);
-        //Debug.Log("Calculated wall vector: " + wallOrientation);
-        //Debug.Log("Calculated cam vector: " + camOrientation);
-        AngleToScreen = Smoother.VerySmooth(AngleToScreen);
-        glow.intensity = AngleToScreen * 5;
 
-        //Material mat = rend.material;
+        float camRelativeIntensity = - Vector2.Dot(wallOrientation.normalized, camOrientation.normalized);
+        camRelativeIntensity = (0.5f + camRelativeIntensity) * 0.6f;
+        Debug.Log("Relative intensity: " + camRelativeIntensity);
+        camRelativeIntensity = Mathf.Max(camRelativeIntensity, 0);
+        camRelativeIntensity = Smoother.VerySmooth(camRelativeIntensity);
+        glow.intensity = camRelativeIntensity * 5;
+        glow.color = preset.GetMainColor();
 
-        Color finalColor = emissionColor * Mathf.LinearToGammaSpace(AngleToScreen);
+        Color finalColor = preset.GetMainColor() * Mathf.LinearToGammaSpace(camRelativeIntensity);
 
         rend.material.SetColor("_EmissionColor", finalColor);
-
-
-
-        Debug.Log("Calculated angle to screen: " + Math.Round(AngleToScreen, 2));
     }
 }
