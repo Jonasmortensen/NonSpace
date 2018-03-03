@@ -27,13 +27,19 @@ public class BackgroundFader : MonoBehaviour {
 
         float camRelativeIntensity = - Vector2.Dot(wallOrientation.normalized, camOrientation.normalized);
         camRelativeIntensity = (0.5f + camRelativeIntensity) * 0.6f;
-        Debug.Log("Relative intensity: " + camRelativeIntensity);
         camRelativeIntensity = Mathf.Max(camRelativeIntensity, 0);
         camRelativeIntensity = Smoother.VerySmooth(camRelativeIntensity);
         glow.intensity = camRelativeIntensity * 5;
         glow.color = preset.GetMainColor();
 
         Color finalColor = preset.GetMainColor() * Mathf.LinearToGammaSpace(camRelativeIntensity);
+
+
+        if (finalColor.r == 0 && finalColor.g == 0 && finalColor.b == 0) {
+            rend.enabled = false;
+        } else if(rend.enabled == false) {
+            rend.enabled = true;
+        }
 
         rend.material.SetColor("_EmissionColor", finalColor);
     }
