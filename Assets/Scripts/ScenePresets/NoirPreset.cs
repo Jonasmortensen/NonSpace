@@ -21,11 +21,11 @@ public class NoirPreset : MonoBehaviour, IScenePreset {
         SpotlightColor = color;
     }
 
-    public void SetUniqueProperty1(float value) {
+    public void SetSpecialProperty1(float value) {
         RainAmount = value;
     }
 
-    public void SetUniqueProperty2(float value) {
+    public void SetSpecialProperty2(float value) {
         uniqueProperty2 = value;
     }
 
@@ -52,4 +52,12 @@ public class NoirPreset : MonoBehaviour, IScenePreset {
 
         rain.SetEmission(RainAmount);
 	}
+
+    public void SetSpecialProperty3(float value) {
+        throw new NotImplementedException();
+    }
+
+    public void SetSpecialProperty4(float value) {
+        throw new NotImplementedException();
+    }
 }

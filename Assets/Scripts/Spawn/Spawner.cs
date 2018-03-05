@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour {
             currentModel.transform.parent = modelPool.transform;
         }
 
-        spawnProfile = new TriangleSP(3, 15);
+        spawnProfile = new TriangleSP(5, 15);
     }
 
     public bool spawn(SpawnDirection spawnDirection = SpawnDirection.CENTER) {
@@ -72,7 +72,7 @@ public class Spawner : MonoBehaviour {
 
     public void Clear() {
         while(kill());
-        spawnProfile = new TriangleSP(3, 15);
+        spawnProfile = new TriangleSP(5, 15);
     }
 
     public void Fill() {

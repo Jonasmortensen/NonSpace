@@ -1,7 +1,8 @@
 ﻿Shader "Custom/Scanline" {
 	Properties {
-		_Color1 ("Color 1", Color) = (1,1,1,1)
+		_Color ("Color", Color) = (1,1,1,1)
 		_Width ("Width", Range(0,1)) = 0.1
+		_Offset ("Offset", Float) = 0
 		_Emission("Emission", Color) = (0,0,0,0)
 		_MainTex ("Albedo (RGB)", 2D) = "white" {}
 	}
@@ -21,12 +22,13 @@
 		};
 
 		half _Width;
+		half _Offset;
 		fixed4 _Emission;
 		fixed4 _Color1;
 
 
 		void surf (Input IN, inout SurfaceOutput o) {
-			if (uint((IN.worldPos.y + 10) * _Width) % 2) {
+			if (uint((IN.worldPos.y + _Offset + 10) * _Width) % 2) {
 				o.Albedo = _Color1.rgb;
 				o.Alpha = 0;
 			}

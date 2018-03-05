@@ -4,14 +4,9 @@ using UnityEngine;
 
 public class LandDeformer : MonoBehaviour {
 
-    public Texture2D noiseTexture;
     private float height;
     private float scale = 0.5f;
     public AnimationCurve valley;
-    [Range(0, 50)]
-    public float heightSlider;
-    [Range(0, 1)]
-    public float movementSlider;
     private float waveAmount;
     private float waveSpeed;
     private float offsetPrSecond;
@@ -58,8 +53,6 @@ public class LandDeformer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        SetHeight(heightSlider);
-        SetMovement(movementSlider);
         UpdateMesh();
     }
 
