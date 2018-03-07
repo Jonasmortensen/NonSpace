@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum SpawnDirection {
-    LEFT, RIGHT, CENTER
+    LEFT, CENTER, RIGHT, FILL, CLEAR
 }
 
 public interface ISpawnProfile {

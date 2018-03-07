@@ -32,7 +32,8 @@ public class APC40Controller : MonoBehaviour {
 
         ListenCameraInput();
         ListenPlaybackInput();
-        ListenPlaybackInput();
+        ListenPlacementInput();
+        ListenSpawnInput();
 
     }
 
@@ -43,8 +44,7 @@ public class APC40Controller : MonoBehaviour {
         SetCameraLights(CameraMode.FRONTAL);;
         SetPlaybackLights(PlaybackMode.REAL_TIME);
         SetPlacementLights(PlacementMode.TRIANGLE);
-
-        //InitSpawnLights();
+        InitSpawnLights();
     }
 
     private void InitiateKnobs() {
@@ -214,6 +214,59 @@ public class APC40Controller : MonoBehaviour {
                 break;
             default:
                 MidiOut.SendNoteOn(MidiChannel.Ch1, 16, 5f);
+                break;
+        }
+    }
+    #endregion
+
+#region Spawn
+    private void ListenSpawnInput() {
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 8)) {
+            PressSpawnLight(SpawnDirection.LEFT);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 9)) {
+            PressSpawnLight(SpawnDirection.CENTER);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 10)) {
+            PressSpawnLight(SpawnDirection.RIGHT);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 11)) {
+            PressSpawnLight(SpawnDirection.FILL);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 13)) {
+            PressSpawnLight(SpawnDirection.CLEAR);
+        }
+    }
+    private void InitSpawnLights() {
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 8, 34f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 9, 34f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 10, 34f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 11, 34f);
+        //Reset:
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 13, 36f);
+    }
+
+    private void PressSpawnLight(SpawnDirection direction) {
+        switch (direction) {
+            case SpawnDirection.LEFT:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 8, 0f);
+                MidiOut.SendNoteOn(MidiChannel.Ch5, 8, 34f);
+                break;
+            case SpawnDirection.CENTER:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 9, 0f);
+                MidiOut.SendNoteOn(MidiChannel.Ch5, 9, 34f);
+                break;
+            case SpawnDirection.RIGHT:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 10, 0f);
+                MidiOut.SendNoteOn(MidiChannel.Ch5, 10, 34f);
+                break;
+            case SpawnDirection.FILL:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 11, 0f);
+                MidiOut.SendNoteOn(MidiChannel.Ch5, 11, 34f);
+                break;
+            case SpawnDirection.CLEAR:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 13, 0f);
+                MidiOut.SendNoteOn(MidiChannel.Ch5, 13, 36f);
                 break;
         }
     }
