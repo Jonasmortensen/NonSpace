@@ -14,7 +14,7 @@ public class LightsInput : MonoBehaviour {
     [Range(0, 1)]
     public float Special4;
     public GameObject SceneController;
-    private IScenePreset ScenePreset;
+    private ISceneController ScenePreset;
 
 	// Use this for initialization
 	void Start () {
@@ -23,9 +23,10 @@ public class LightsInput : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        ScenePreset.SetMainColor(PrimaryColor);
+        //ScenePreset.SetMainColor(PrimaryColor);
         //ScenePreset.SetSecondaryColor(SecondaryColor);
         ScenePreset.SetSpecialProperty1(Special1);
         ScenePreset.SetSpecialProperty2(Special2);
     }
+
 }

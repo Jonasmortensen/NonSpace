@@ -74,9 +74,7 @@ public class LandDeformer : MonoBehaviour {
             Vector3 vertex = vertices[i];
             float t = (vertex.x - minX) / (maxX - minX);
 
-            //float textureSample = noiseTexture.GetPixel((int)(vertex.x * scale) % noiseTexture.width, (int)(vertex.y * scale + yOffset) % noiseTexture.height).r;
             float textureSample = Mathf.PerlinNoise((vertex.x * scale), (vertex.y * scale + yOffset));
-
 
             float sineValue = Mathf.Sin(vertex.x + Time.time * waveSpeed);
             vertex.z = (textureSample * height + sineValue * waveAmount * height) * valley.Evaluate(t);

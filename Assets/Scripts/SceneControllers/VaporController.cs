@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VaporController : MonoBehaviour, IScenePreset {
+public class VaporController : MonoBehaviour, ISceneController {
     private LandDeformer land;
     private Sun sun;
 

@@ -25974,9 +25974,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e081212cff2f11f42a8b6d9d42563f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasColor: {r: 1, g: 0, b: 0, a: 0}
+  CanvasColor: {r: 1, g: 0.93711966, b: 0.77205884, a: 0}
   SpotlightColor: {r: 0, g: 0, b: 0, a: 0}
-  RainAmount: 1
+  RainAmount: 0
 --- !u!4 &2067893617
 Transform:
   m_ObjectHideFlags: 0

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IScenePreset  {
+public interface ISceneController  {
     void SetMainColor(Color color);
     void SetSecondaryColor(Color color);
     void SetSpecialProperty1(float value);

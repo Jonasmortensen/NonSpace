@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoirPreset : MonoBehaviour, IScenePreset {
+public class NoirController : MonoBehaviour, ISceneController {
     private Light[] lights;
     private RainController rain;
 
-    public Color CanvasColor;
-    public Color SpotlightColor;
-    [Range(0, 1)]
-    public float RainAmount;
+    private Color CanvasColor;
+    private Color SpotlightColor;
+    private float RainAmount;
     private float uniqueProperty2;
 
     public void SetMainColor(Color color) {

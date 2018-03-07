@@ -10,7 +10,7 @@ public class BackgroundFader : MonoBehaviour {
     private Light glow;
     private Renderer rend;
 
-    public NoirPreset preset;
+    public NoirController preset;
 
 	// Use this for initialization
 	void Start () {
