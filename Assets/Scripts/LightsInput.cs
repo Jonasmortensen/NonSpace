@@ -3,8 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LightsInput : MonoBehaviour {
-    public Color PrimaryColor;
-    public Color SecondaryColor;
+    [Range(0, 1)]
+    public float MainHue;
+    [Range(0, 1)]
+    public float MainSaturation;
+    [Range(0, 1)]
+    public float SecondaryHue;
+    [Range(0, 1)]
+    public float SecondarySaturation;
     [Range(0, 1)]
     public float Special1;
     [Range(0, 1)]
@@ -13,20 +19,22 @@ public class LightsInput : MonoBehaviour {
     public float Special3;
     [Range(0, 1)]
     public float Special4;
-    public GameObject SceneController;
-    private ISceneController ScenePreset;
+    public GameObject SceneControllerObject;
+    private ISceneController SceneController;
 
 	// Use this for initialization
 	void Start () {
-        ScenePreset = SceneController.GetComponent<VaporController>();
+        SceneController = SceneControllerObject.GetComponent<ISceneController>();
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        //ScenePreset.SetMainColor(PrimaryColor);
-        //ScenePreset.SetSecondaryColor(SecondaryColor);
-        ScenePreset.SetSpecialProperty1(Special1);
-        ScenePreset.SetSpecialProperty2(Special2);
+        SceneController.SetMainColorHue(MainHue);
+        SceneController.SetMainColorSaturation(1-MainSaturation);
+        SceneController.SetSecondaryColorHue(SecondaryHue);
+        SceneController.SetSecondaryColorSaturation(SecondarySaturation);
+        SceneController.SetSpecialProperty1(Special1);
+        SceneController.SetSpecialProperty2(Special2);
     }
 
 }

@@ -6,13 +6,32 @@ using UnityEngine;
 public class VaporController : MonoBehaviour, ISceneController {
     private LandDeformer land;
     private Sun sun;
+    private float sunHue;
+    private float sunSaturation;
+    private float floorHue;
+    private float floorSaturation;
 
-    public void SetMainColor(Color color) {
-        sun.SetColor(color);
+    public void SetMainColorHue(float value) {
+        sunHue = value;
+        updateSunColor();
     }
 
-    public void SetSecondaryColor(Color color) {
-        throw new NotImplementedException();
+    public void SetMainColorSaturation(float value) {
+        sunSaturation = value;
+        updateSunColor();
+    }
+
+    private void updateSunColor() {
+        Color col = Color.HSVToRGB(sunHue, sunSaturation, 1.4f);
+        sun.SetColor(col);
+    }
+
+    public void SetSecondaryColorHue(float value) {
+        floorHue = value;
+    }
+
+    public void SetSecondaryColorSaturation(float value) {
+        floorSaturation = value;
     }
 
     public void SetSpecialProperty1(float value) {

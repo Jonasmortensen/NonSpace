@@ -59,4 +59,20 @@ public class NoirController : MonoBehaviour, ISceneController {
     public void SetSpecialProperty4(float value) {
         throw new NotImplementedException();
     }
+
+    public void SetMainColorHue(float value) {
+        throw new NotImplementedException();
+    }
+
+    public void SetMainColorSaturation(float value) {
+        throw new NotImplementedException();
+    }
+
+    public void SetSecondaryColorHue(float value) {
+        throw new NotImplementedException();
+    }
+
+    public void SetSecondaryColorSaturation(float value) {
+        throw new NotImplementedException();
+    }
 }
