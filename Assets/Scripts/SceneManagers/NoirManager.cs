@@ -7,9 +7,9 @@ public class NoirManager : MonoBehaviour, ISceneManager {
     private Light[] lights;
     private RainController rain;
 
-    private Color CanvasColor;
-    private Color SpotlightColor;
-    private float RainAmount;
+    public Color CanvasColor;
+    public Color SpotlightColor;
+    public float RainAmount;
     private float uniqueProperty2;
 
     public void SetMainColor(Color color) {

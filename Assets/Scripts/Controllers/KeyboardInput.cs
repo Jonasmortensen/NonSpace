@@ -14,6 +14,7 @@ public class KeyboardInput : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //CAMERA
+        /*
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
             //Frontal
             camController.SetViewMode(CameraViewMode.FRONT);
@@ -93,5 +94,6 @@ public class KeyboardInput : MonoBehaviour {
             //Clear
             spawner.Clear();
         }
+        */
     }
 }

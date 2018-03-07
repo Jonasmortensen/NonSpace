@@ -4,5 +4,7 @@ using UnityEngine;
 
 public interface ICameraController {
     void SetCameraManager(CameraManager camManager);
-
+    float GetWorldRotation();
+    float GetCameraRotation();
+    CameraMode GetSelectedCameraMode();
 }

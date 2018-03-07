@@ -5,4 +5,5 @@ using UnityEngine;
 public interface ISpawnController {
     void SetSpawner(Spawner spawner);
     PlacementMode GetSelectedPlacementMode();
+    PlaybackMode GetSelectedPlaybackMode();
 }

@@ -1,19 +1,27 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CameraMode {
-    FRONTAL, ABOVE, SIDE, BELOW, RESET
-}
+
 
 public enum PlaybackMode {
     REAL_TIME, SHIFTED, BACKNFORTH, GLITCH, RESET
 }
 
-public class APC40Controller : MonoBehaviour {
-    public float RotationKnob1;
-    public float RotationKnob2;
-    private int MovementKnob;
+public class APC40Controller : MonoBehaviour, ICameraController, ISpawnController {
+    private CameraManager camMng;
+    public Spawner spawner;
+
+    public float mainHueSlider;
+    public float mainSatSlider;
+    public float secHueSlider;
+    public float secSatSlider;
+    public float special1;
+    public float special2;
+    public float special3;
+    public float special4;
+
 
     // Use this for initialization
     void Start () {
@@ -26,11 +34,55 @@ public class APC40Controller : MonoBehaviour {
             InitController();
         }
 
-        ListenCameraInput();
+        if (camMng != null) {
+            ListenCameraInput();
+        }
+        if(spawner != null) {
+            ListenPlacementInput();
+            ListenSpawnInput();
+        }
         ListenPlaybackInput();
-        ListenPlacementInput();
-        ListenSpawnInput();
+        ListenSliders();
+        
+    }
 
+    public void ListenSliders() {
+        mainHueSlider = MidiInput.GetKnob(MidiChannel.Ch1, 7);
+        mainSatSlider = MidiInput.GetKnob(MidiChannel.Ch2, 7);
+        secHueSlider = MidiInput.GetKnob(MidiChannel.Ch3, 7);
+        secSatSlider = MidiInput.GetKnob(MidiChannel.Ch4, 7);
+        special1 = MidiInput.GetKnob(MidiChannel.Ch5, 7);
+        special2 = MidiInput.GetKnob(MidiChannel.Ch6, 7);
+        special3 = MidiInput.GetKnob(MidiChannel.Ch7, 7);
+        special4 = MidiInput.GetKnob(MidiChannel.Ch8, 7);
+    }
+
+    public void SetCameraManager(CameraManager cameraManager) {
+        camMng = cameraManager;
+    }
+
+    public float GetWorldRotation() {
+        throw new NotImplementedException();
+    }
+
+    public float GetCameraRotation() {
+        throw new NotImplementedException();
+    }
+
+    public void SetSpawner(Spawner _spawner) {
+        spawner = _spawner;
+    }
+
+    public PlacementMode GetSelectedPlacementMode() {
+        throw new NotImplementedException();
+    }
+
+    public PlaybackMode GetSelectedPlaybackMode() {
+        throw new NotImplementedException();
+    }
+
+    public CameraMode GetSelectedCameraMode() {
+        throw new NotImplementedException();
     }
 
     public void InitController() {
@@ -77,18 +129,23 @@ public class APC40Controller : MonoBehaviour {
     private void ListenCameraInput() {
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 32)) {
             SetCameraLights(CameraMode.FRONTAL);
+            camMng.SetCameraMode(CameraMode.FRONTAL);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 33)) {
             SetCameraLights(CameraMode.ABOVE);
+            camMng.SetCameraMode(CameraMode.ABOVE);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 34)) {
             SetCameraLights(CameraMode.SIDE);
+            camMng.SetCameraMode(CameraMode.SIDE);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 35)) {
             SetCameraLights(CameraMode.BELOW);
+            camMng.SetCameraMode(CameraMode.BELOW);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 37)) {
             SetCameraLights(CameraMode.RESET);
+            camMng.SetCameraMode(CameraMode.FRONTAL);
         }
     }
 
@@ -219,18 +276,22 @@ public class APC40Controller : MonoBehaviour {
     private void ListenSpawnInput() {
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 8)) {
             PressSpawnLight(SpawnDirection.LEFT);
+            spawner.spawn(SpawnDirection.LEFT);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 9)) {
             PressSpawnLight(SpawnDirection.CENTER);
+            spawner.spawn(SpawnDirection.CENTER);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 10)) {
             PressSpawnLight(SpawnDirection.RIGHT);
+            spawner.spawn(SpawnDirection.RIGHT);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 11)) {
             PressSpawnLight(SpawnDirection.FILL);
+            spawner.Fill();
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 13)) {
-            PressSpawnLight(SpawnDirection.CLEAR);
+            spawner.Clear();
         }
     }
     private void InitSpawnLights() {
@@ -266,6 +327,6 @@ public class APC40Controller : MonoBehaviour {
                 break;
         }
     }
-#endregion
+    #endregion
 
 }

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum CameraViewMode {
-    FRONT, TOP, LEFT, BOT
+public enum CameraMode {
+    FRONTAL, ABOVE, SIDE, BELOW, RESET
 }
 
 public enum CameraRotationMode {
@@ -18,7 +18,7 @@ public class CameraManager : MonoBehaviour {
     public float transitionTime;
 
     private Camera mainCam;
-    public CameraViewMode viewMode;
+    public CameraMode viewMode;
     public CameraRotationMode rotationMode;
     public CameraMovementnMode movementMode;
 
@@ -87,24 +87,24 @@ public class CameraManager : MonoBehaviour {
         mainCam.transform.Rotate(Vector3.forward * Time.deltaTime * currentCamRotation);
     }
 
-    public void SetViewMode(CameraViewMode _viewMode) {
+    public void SetCameraMode(CameraMode _viewMode) {
         viewMode = _viewMode;
         startPos = mainCam.transform.localPosition;
         startAngle = mainCam.transform.localRotation;
         switch (_viewMode) {
-            case CameraViewMode.FRONT:
+            case CameraMode.FRONTAL:
                 goalPos = transform.position - (Vector3.forward * 10) + (transform.up * 5);
                 goalAngle = Quaternion.Euler(new Vector3(10, 0, 0));
                 break;
-            case CameraViewMode.TOP:
+            case CameraMode.ABOVE:
                 goalPos = transform.position + (Vector3.up * 12);
                 goalAngle = Quaternion.Euler(new Vector3(90, 0, 0));
                 break;
-            case CameraViewMode.LEFT:
+            case CameraMode.SIDE:
                 goalPos = transform.position - (Vector3.right * 10) + transform.up * 5;
                 goalAngle = Quaternion.Euler(new Vector3(10, 90, 0));
                 break;
-            case CameraViewMode.BOT:
+            case CameraMode.BELOW:
                 goalPos = transform.position + (-Vector3.up * 12);
                 goalAngle = Quaternion.Euler(new Vector3(-90, 0, 0));
                 break;
@@ -153,7 +153,7 @@ public class CameraManager : MonoBehaviour {
         dollyGoalRot = Quaternion.identity;
         //camStartRot = mainCam.transform.rotation;
         //camGoalRot = Quaternion.identity;
-        SetViewMode(viewMode);
+        SetCameraMode(viewMode);
         transitionType |= 4;
         Debug.Log("Resetting!");
     }
