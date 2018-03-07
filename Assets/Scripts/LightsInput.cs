@@ -20,11 +20,11 @@ public class LightsInput : MonoBehaviour {
     [Range(0, 1)]
     public float Special4;
     public GameObject SceneControllerObject;
-    private ISceneController SceneController;
+    private ISceneManager SceneController;
 
 	// Use this for initialization
 	void Start () {
-        SceneController = SceneControllerObject.GetComponent<ISceneController>();
+        SceneController = SceneControllerObject.GetComponent<ISceneManager>();
 	}
 	
 	// Update is called once per frame

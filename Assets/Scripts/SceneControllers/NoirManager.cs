@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NoirController : MonoBehaviour, ISceneController {
+public class NoirManager : MonoBehaviour, ISceneManager {
     private Light[] lights;
     private RainController rain;
 

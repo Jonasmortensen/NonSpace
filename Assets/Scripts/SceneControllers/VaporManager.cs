@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VaporController : MonoBehaviour, ISceneController {
+public class VaporManager : MonoBehaviour, ISceneManager {
     private LandDeformer land;
     private Sun sun;
     private float sunHue;

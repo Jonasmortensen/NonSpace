@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISceneController  {
+public interface ISceneManager  {
     //void SetMainColor(Color color);
     void SetMainColorHue(float value);
     void SetMainColorSaturation(float value);
