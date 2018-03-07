@@ -14,7 +14,7 @@ public enum CameraMovementnMode {
     IDLE, FORWARDS, BACKWARDS
 }
 
-public class CameraController : MonoBehaviour {
+public class CameraManager : MonoBehaviour {
     public float transitionTime;
 
     private Camera mainCam;

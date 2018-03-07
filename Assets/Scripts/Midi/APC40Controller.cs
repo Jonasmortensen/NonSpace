@@ -10,10 +10,6 @@ public enum PlaybackMode {
     REAL_TIME, SHIFTED, BACKNFORTH, GLITCH, RESET
 }
 
-public enum PlacementMode {
-    TRIANGLE, RANDOM, LINES, ULTRARANDOM, RESET
-}
-
 public class APC40Controller : MonoBehaviour {
     public float RotationKnob1;
     public float RotationKnob2;

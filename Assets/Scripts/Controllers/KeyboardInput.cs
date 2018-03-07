@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyboardInput : MonoBehaviour {
-    public CameraController camController;
+    public CameraManager camController;
     public Spawner spawner;
 
 	// Use this for initialization

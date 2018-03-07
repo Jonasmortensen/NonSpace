@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SpawnMode {
-    TRIANGLE, LINES, RANDOM, ULTRA_RANDOM
+public enum PlacementMode {
+    TRIANGLE, RANDOM, LINES, ULTRARANDOM, RESET
 }
 
 public class Spawner : MonoBehaviour {
@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour {
     public GameObject prefab;
     public float spawnTime;
     public int objectLimit;
-    public SpawnMode spawnMode;
+    public PlacementMode spawnMode;
 
     //private List<GameObject> live;
     //private List<GameObject> poolList;
