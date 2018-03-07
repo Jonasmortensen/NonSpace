@@ -28,10 +28,17 @@ public class VaporController : MonoBehaviour, ISceneController {
 
     public void SetSecondaryColorHue(float value) {
         floorHue = value;
+        updateFloorColor();
     }
 
     public void SetSecondaryColorSaturation(float value) {
         floorSaturation = value;
+        updateFloorColor();
+    }
+
+    private void updateFloorColor() {
+        Color col = Color.HSVToRGB(floorHue, floorSaturation, 1f);
+        land.SetMaterialColor(col);
     }
 
     public void SetSpecialProperty1(float value) {

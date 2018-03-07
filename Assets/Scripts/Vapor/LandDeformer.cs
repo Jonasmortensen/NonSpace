@@ -13,6 +13,7 @@ public class LandDeformer : MonoBehaviour {
     private float minX;
     private float maxX;
     private float yOffset;
+    private Material mat;
 
     private MeshFilter meshFilter;
 
@@ -20,6 +21,7 @@ public class LandDeformer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         meshFilter = GetComponent<MeshFilter>();
+        mat = GetComponent<Renderer>().material;
         //Delete shared vertices in the plane
         Mesh sourceMesh = meshFilter.mesh;
 
@@ -54,6 +56,10 @@ public class LandDeformer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         UpdateMesh();
+    }
+
+    public void SetMaterialColor(Color color) {
+        mat.SetColor("_EmissionColor", color * 1.4f);
     }
 
     public void SetHeight(float _height) {
