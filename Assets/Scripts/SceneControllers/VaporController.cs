@@ -22,7 +22,7 @@ public class VaporController : MonoBehaviour, ISceneController {
     }
 
     private void updateSunColor() {
-        Color col = Color.HSVToRGB(sunHue, sunSaturation, 1.4f);
+        Color col = Color.HSVToRGB(sunHue, sunSaturation, 1f);
         sun.SetColor(col);
     }
 
@@ -37,6 +37,7 @@ public class VaporController : MonoBehaviour, ISceneController {
     public void SetSpecialProperty1(float value) {
         land.SetHeight(value * 50);
         land.SetMovement(1.0f - value);
+        //Need to set sun movement of bars
     }
 
     public void SetSpecialProperty2(float value) {

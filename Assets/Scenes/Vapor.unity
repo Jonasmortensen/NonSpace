@@ -369,12 +369,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bcc0249417925944aa5eff59a77d247, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MainHue: 0.8
-  MainSaturation: 0.3
+  MainHue: 0
+  MainSaturation: 0
   SecondaryHue: 0
   SecondarySaturation: 0
   Special1: 0
-  Special2: 0
+  Special2: 1
   Special3: 0
   Special4: 0
   SceneControllerObject: {fileID: 1302642014}
@@ -3890,7 +3890,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1191706304}
   - component: {fileID: 1191706303}
-  - component: {fileID: 1191706302}
   - component: {fileID: 1191706301}
   - component: {fileID: 1191706305}
   m_Layer: 9
@@ -3934,19 +3933,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!136 &1191706302
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1191706300}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1191706303
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -3961,7 +3947,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1191706300}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0.02234435, y: 29.0665, z: 59.13343}
+  m_LocalPosition: {x: 0, y: 30, z: 60}
   m_LocalScale: {x: 40, y: 0.10000042, z: 40.000107}
   m_Children:
   - {fileID: 1794584728}
@@ -4153,7 +4139,7 @@ Light:
   m_Type: 2
   m_Color: {r: 0.8206897, g: 0, b: 1, a: 1}
   m_Intensity: 15
-  m_Range: 68.548325
+  m_Range: 100
   m_SpotAngle: 30
   m_CookieSize: 10
   m_Shadows:
@@ -4185,8 +4171,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1794584726}
   m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.002006054, y: 255, z: 0.468}
-  m_LocalScale: {x: 0.025, y: 0.025000008, z: 1}
+  m_LocalPosition: {x: 0, y: 269.99887, z: 0.49999887}
+  m_LocalScale: {x: 0.025, y: 0.02499994, z: 1}
   m_Children: []
   m_Father: {fileID: 1191706304}
   m_RootOrder: 0
