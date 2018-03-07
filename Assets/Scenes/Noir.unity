@@ -25118,6 +25118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 854960773}
+  controller: {fileID: 1931694663}
+  sceneManager: {fileID: 2067893615}
 --- !u!4 &1333699954
 Transform:
   m_ObjectHideFlags: 0
@@ -25780,6 +25782,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spawner: {fileID: 1749176065}
+  mainHueSlider: 0
+  mainSatSlider: 0
+  secHueSlider: 0
+  secSatSlider: 0
+  special1: 0
+  special2: 0
+  special3: 0
+  special4: 0
 --- !u!4 &1931694664
 Transform:
   m_ObjectHideFlags: 0
@@ -25957,9 +25967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e081212cff2f11f42a8b6d9d42563f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasColor: {r: 1, g: 0, b: 0, a: 0}
+  CanvasColor: {r: 0, g: 0, b: 0, a: 0}
   SpotlightColor: {r: 0, g: 0, b: 0, a: 0}
-  RainAmount: 0
 --- !u!4 &2067893617
 Transform:
   m_ObjectHideFlags: 0

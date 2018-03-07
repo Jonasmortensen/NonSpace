@@ -9,23 +9,44 @@ public class NoirManager : MonoBehaviour, ISceneManager {
 
     public Color CanvasColor;
     public Color SpotlightColor;
-    public float RainAmount;
-    private float uniqueProperty2;
+    private float mainHue;
+    private float mainSat;
+    private float mainVal;
+    private float secHue;
+    private float secSat;
+    private float secVal;
+    private float RainAmount;
 
-    public void SetMainColor(Color color) {
-        CanvasColor = color;
+    public void SetMainColorHue(float value) {
+        mainHue = value;
     }
 
-    public void SetSecondaryColor(Color color) {
-        SpotlightColor = color;
+    public void SetMainColorSaturation(float value) {
+        mainSat = 1 - value;
+    }
+
+    public void SetSecondaryColorHue(float value) {
+        secHue = value;
+    }
+
+    public void SetSecondaryColorSaturation(float value) {
+        secSat = 1 - value;
     }
 
     public void SetSpecialProperty1(float value) {
-        RainAmount = value;
+        mainVal = value;
     }
 
     public void SetSpecialProperty2(float value) {
-        uniqueProperty2 = value;
+        secVal = value;
+    }
+
+    public void SetSpecialProperty3(float value) {
+        RainAmount = value;
+    }
+
+    public void SetSpecialProperty4(float value) {
+        //throw new NotImplementedException();
     }
 
     public Color GetMainColor() {
@@ -45,6 +66,7 @@ public class NoirManager : MonoBehaviour, ISceneManager {
 	
 	// Update is called once per frame
 	void Update () {
+        UpdateColors();
         foreach(Light light in lights) {
             light.color = SpotlightColor;
         }
@@ -52,27 +74,8 @@ public class NoirManager : MonoBehaviour, ISceneManager {
         rain.SetEmission(RainAmount);
 	}
 
-    public void SetSpecialProperty3(float value) {
-        throw new NotImplementedException();
-    }
-
-    public void SetSpecialProperty4(float value) {
-        throw new NotImplementedException();
-    }
-
-    public void SetMainColorHue(float value) {
-        throw new NotImplementedException();
-    }
-
-    public void SetMainColorSaturation(float value) {
-        throw new NotImplementedException();
-    }
-
-    public void SetSecondaryColorHue(float value) {
-        throw new NotImplementedException();
-    }
-
-    public void SetSecondaryColorSaturation(float value) {
-        throw new NotImplementedException();
+    private void UpdateColors() {
+        CanvasColor = Color.HSVToRGB(mainHue, mainSat, mainVal);
+        SpotlightColor = Color.HSVToRGB(secHue, secSat, secVal);
     }
 }

@@ -9,9 +9,10 @@ public enum PlaybackMode {
     REAL_TIME, SHIFTED, BACKNFORTH, GLITCH, RESET
 }
 
-public class APC40Controller : MonoBehaviour, ICameraController, ISpawnController {
+public class APC40Controller : MonoBehaviour, ICameraController, ISpawnController, ISceneController {
     private CameraManager camMng;
     public Spawner spawner;
+    public ISceneManager sceneManager;
 
     public float mainHueSlider;
     public float mainSatSlider;
@@ -42,10 +43,13 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
             ListenSpawnInput();
         }
         ListenPlaybackInput();
-        ListenSliders();
+        if(sceneManager != null) {
+            ListenSliders();
+        }
         
     }
 
+#region Sliders
     public void ListenSliders() {
         mainHueSlider = MidiInput.GetKnob(MidiChannel.Ch1, 7);
         mainSatSlider = MidiInput.GetKnob(MidiChannel.Ch2, 7);
@@ -55,6 +59,53 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
         special2 = MidiInput.GetKnob(MidiChannel.Ch6, 7);
         special3 = MidiInput.GetKnob(MidiChannel.Ch7, 7);
         special4 = MidiInput.GetKnob(MidiChannel.Ch8, 7);
+
+        sceneManager.SetMainColorHue(mainHueSlider);
+        sceneManager.SetMainColorSaturation(mainSatSlider);
+        sceneManager.SetSecondaryColorHue(secHueSlider);
+        sceneManager.SetSecondaryColorSaturation(secSatSlider);
+        sceneManager.SetSpecialProperty1(special1);
+        sceneManager.SetSpecialProperty2(special2);
+        sceneManager.SetSpecialProperty3(special3);
+        sceneManager.SetSpecialProperty4(special4);
+    }
+
+    public float GetMainHueValue() {
+        return mainHueSlider;
+    }
+
+    public float GetMainSaturationValue() {
+        return mainSatSlider;
+    }
+
+    public float GetSecondaryHueValue() {
+        return secHueSlider;
+    }
+
+    public float GetSecondarySarutaionValue() {
+        return secSatSlider;
+    }
+
+    public float GetSpecial1Value() {
+        return special1;
+    }
+
+    public float GetSpecial2Value() {
+        return special2;
+    }
+
+    public float GetSpecial3Value() {
+        return special3;
+    }
+
+    public float GetSpecial4Value() {
+        return special4;
+    }
+
+    #endregion
+
+    public void SetSceneManager(ISceneManager _sceneManager) {
+        sceneManager = _sceneManager;
     }
 
     public void SetCameraManager(CameraManager cameraManager) {

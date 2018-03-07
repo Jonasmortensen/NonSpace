@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public Camera MainCamera;
+    public APC40Controller controller;
+    public GameObject sceneManager;
 
     void Awake() {
         if (Instance == null) {
@@ -14,6 +16,10 @@ public class GameController : MonoBehaviour {
         else {
             Destroy(gameObject);
         }
+    }
+
+    void Start() {
+        controller.SetSceneManager(sceneManager.GetComponent<ISceneManager>());
     }
 
     public static GameController Instance { get; private set; }
