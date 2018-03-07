@@ -35,6 +35,7 @@ public class LightsInput : MonoBehaviour {
         SceneController.SetSecondaryColorSaturation(SecondarySaturation);
         SceneController.SetSpecialProperty1(Special1);
         SceneController.SetSpecialProperty2(Special2);
+        SceneController.SetSpecialProperty3(Special3);
     }
 
 }

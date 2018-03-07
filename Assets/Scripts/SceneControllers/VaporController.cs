@@ -45,7 +45,7 @@ public class VaporController : MonoBehaviour, ISceneController {
     }
 
     public void SetSpecialProperty3(float value) {
-        throw new NotImplementedException();
+        sun.transform.position = new Vector3(sun.transform.position.x, value - 60 + (value * 90), sun.transform.position.z);
     }
 
     public void SetSpecialProperty4(float value) {
