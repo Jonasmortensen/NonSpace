@@ -31,6 +31,8 @@ public class APC40Controller : MonoBehaviour {
         }
 
         ListenCameraInput();
+        ListenPlaybackInput();
+        ListenPlaybackInput();
 
     }
 
@@ -39,8 +41,8 @@ public class APC40Controller : MonoBehaviour {
         TurnOffLights();
         InitiateKnobs();
         SetCameraLights(CameraMode.FRONTAL);;
-        //SetPlaybackLights(PlaybackMode.REAL_TIME);
-        //SetPlacementLights(PlacementMode.TRIANGLE);
+        SetPlaybackLights(PlaybackMode.REAL_TIME);
+        SetPlacementLights(PlacementMode.TRIANGLE);
 
         //InitSpawnLights();
     }
@@ -59,6 +61,12 @@ public class APC40Controller : MonoBehaviour {
         ResetKnobs();
     }
 
+    private void ResetKnobs() {
+        MidiOut.SendControlChange(MidiChannel.Ch1, 0x30, 63);
+        MidiOut.SendControlChange(MidiChannel.Ch1, 0x31, 63);
+        MidiOut.SendControlChange(MidiChannel.Ch1, 0x32, 1);
+    }
+
     public void TurnOffLights() {
         for (int i = 0; i < 39; i++) {
             MidiOut.SendNoteOff(MidiChannel.Ch1, i);
@@ -67,6 +75,9 @@ public class APC40Controller : MonoBehaviour {
         MidiOut.SendNoteOff(MidiChannel.Ch1, 51);
     }
 
+
+
+#region Camera
     private void ListenCameraInput() {
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 32)) {
             SetCameraLights(CameraMode.FRONTAL);
@@ -112,10 +123,100 @@ public class APC40Controller : MonoBehaviour {
                 break;
         }
     }
+    #endregion
 
-    private void ResetKnobs() {
-        MidiOut.SendControlChange(MidiChannel.Ch1, 0x30, 63);
-        MidiOut.SendControlChange(MidiChannel.Ch1, 0x31, 63);
-        MidiOut.SendControlChange(MidiChannel.Ch1, 0x32, 1);
+#region Playback
+    private void ListenPlaybackInput() {
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 24)) {
+            SetPlaybackLights(PlaybackMode.REAL_TIME);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 25)) {
+            SetPlaybackLights(PlaybackMode.SHIFTED);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 26)) {
+            SetPlaybackLights(PlaybackMode.BACKNFORTH);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 27)) {
+            SetPlaybackLights(PlaybackMode.GLITCH);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 29)) {
+            SetPlaybackLights(PlaybackMode.RESET);
+        }
     }
+
+    public void SetPlaybackLights(PlaybackMode mode) {
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 24, 15f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 25, 15f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 26, 15f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 27, 15f);
+        //Reset:
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 29, 16f);
+
+        switch (mode) {
+            case PlaybackMode.REAL_TIME:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 24, 13f);
+                break;
+            case PlaybackMode.SHIFTED:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 25, 13f);
+                break;
+            case PlaybackMode.BACKNFORTH:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 26, 13f);
+                break;
+            case PlaybackMode.GLITCH:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 27, 13f);
+                break;
+            default:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 24, 13f);
+                break;
+        }
+    }
+    #endregion
+
+#region Placement
+    private void ListenPlacementInput() {
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 16)) {
+            SetPlacementLights(PlacementMode.TRIANGLE);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 17)) {
+            SetPlacementLights(PlacementMode.RANDOM);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 18)) {
+            SetPlacementLights(PlacementMode.LINES);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 19)) {
+            SetPlacementLights(PlacementMode.ULTRARANDOM);
+        }
+        if (MidiInput.GetKeyDown(MidiChannel.Ch1, 21)) {
+            SetPlacementLights(PlacementMode.RESET);
+        }
+    }
+
+    public void SetPlacementLights(PlacementMode mode) {
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 16, 7f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 17, 7f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 18, 7f);
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 19, 7f);
+        //Reset:
+        MidiOut.SendNoteOn(MidiChannel.Ch1, 21, 8f);
+
+        switch (mode) {
+            case PlacementMode.TRIANGLE:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 16, 5f);
+                break;
+            case PlacementMode.RANDOM:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 17, 5f);
+                break;
+            case PlacementMode.LINES:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 18, 5f);
+                break;
+            case PlacementMode.ULTRARANDOM:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 19, 5f);
+                break;
+            default:
+                MidiOut.SendNoteOn(MidiChannel.Ch1, 16, 5f);
+                break;
+        }
+    }
+#endregion
+
 }
