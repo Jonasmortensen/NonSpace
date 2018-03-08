@@ -61,7 +61,7 @@ Material:
     - _CameraFarFadeDistance: 2
     - _CameraNearFadeDistance: 1
     - _Cull: 2
-    - _CutHeight: 0.48
+    - _CutHeight: 0.64
     - _Cutoff: 0.46
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
@@ -71,6 +71,7 @@ Material:
     - _DstBlend: 0
     - _EmissionEnabled: 0
     - _FadeHeight: 0.79
+    - _FadeWidth: 1
     - _FlipbookMode: 0
     - _GlossMapScale: 1
     - _Glossiness: 0
@@ -93,5 +94,5 @@ Material:
     - _CameraFadeParams: {r: 0, g: Infinity, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 0.984}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _FadeColor: {r: 1, g: 0.93103445, b: 0, a: 0}
+    - _FadeColor: {r: 0.9432049, g: 1, b: 0.41176468, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}

@@ -7,7 +7,7 @@ Properties {
     _MeshRadius ("Mesh Radius", Float) = 1
     _CutHeight ("Cut height", Range(0,1)) = 0
     _Cutoff ("Alpha cutoff", Range(0,1)) = 0.5
-    _FadeHeight("Fade height", Range(0,1)) = 0
+    _FadeWidth("Fade width", Range(0,1)) = 0
     _FadeColor("Fade color", Color) = (0,0,0,0)
 }
 
@@ -22,7 +22,7 @@ sampler2D _MainTex;
 fixed4 _Color;
 half _CutHeight;
 uniform float _MeshRadius;
-half _FadeHeight;
+half _FadeWidth;
 fixed4 _FadeColor;
 
 struct Input {
@@ -32,16 +32,21 @@ struct Input {
 
 void surf (Input IN, inout SurfaceOutput o) {
     fixed4 c = tex2D(_MainTex, IN.uv_MainTex) * _Color;
-    if(IN.worldPos.y < (_MeshRadius - _MeshRadius * _CutHeight)) {
+    fixed4 emission = (0,0,0,0);
+    half border = _MeshRadius * _CutHeight;
+    if(IN.worldPos.y < border) {
         o.Alpha = 1;
+        half blendStart = border - _FadeWidth;
+        half blend = (IN.worldPos.y - blendStart) / _FadeWidth;
+        if(blend > 0) {
+            emission = lerp(emission, _FadeColor * 1.5, blend);
 
-        if(IN.worldPos.y > (_MeshRadius - _MeshRadius * _CutHeight) - _FadeHeight) {
-            c = _FadeColor * 3;
         }
     } else {
         o.Alpha = 0;
     }
     o.Albedo = c.rgb;
+    o.Emission = emission.rgb;
 }
 ENDCG
 }
