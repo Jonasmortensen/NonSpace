@@ -26,15 +26,15 @@ public class NoirManager : MonoBehaviour, ISceneManager {
     }
 
     public void SetSecondaryColorHue(float value) {
-        secHue = value;
+        mainVal = value;
     }
 
     public void SetSecondaryColorSaturation(float value) {
-        secSat = 1 - value;
+        secHue = value;
     }
 
     public void SetSpecialProperty1(float value) {
-        mainVal = value;
+        secSat = 1 - value;
     }
 
     public void SetSpecialProperty2(float value) {
