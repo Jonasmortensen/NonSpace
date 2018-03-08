@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class KeyboardInput : MonoBehaviour{
     public CameraManager camController;
-    public Spawner spawner;
+    //public Spawner spawner;
 
 
     // Use this for initialization
@@ -15,31 +15,31 @@ public class KeyboardInput : MonoBehaviour{
 	// Update is called once per frame
 	void Update () {
         //CAMERA
-        /*
+
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
             //Frontal
-            camController.SetViewMode(CameraViewMode.FRONT);
+            camController.SetCameraMode(CameraMode.FRONTAL);
             camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
             //Above
-            camController.SetViewMode(CameraViewMode.TOP);
+            camController.SetCameraMode(CameraMode.ABOVE);
             camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {
             //Side
-            camController.SetViewMode(CameraViewMode.LEFT);
+            camController.SetCameraMode(CameraMode.SIDE);
             camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)) {
             //Below
-            camController.SetViewMode(CameraViewMode.BOT);
+            camController.SetCameraMode(CameraMode.BELOW);
             camController.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)) {
             //Reset rotation
         }
-
+        /*
         //PLAYBACK
         if (Input.GetKeyDown(KeyCode.Q)) {
             //Real-time
