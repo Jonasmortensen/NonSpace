@@ -112,14 +112,16 @@ public class CameraManager : MonoBehaviour {
 
     //Based on 0 - 1
     public void SetCameraRotation(float value) {
-        value = value - 0.5f;
-        cameraRotationSpeed = value * 360;
+        value = 2 * value - 1f;
+        value *= Mathf.Abs(value);
+        cameraRotationSpeed = -value * 180;
     }
 
     //Based on 0 - 1
     public void SetDollyRotation(float value) {
-        value = value - 0.5f;
-        dollyRotationSpeed = value * 360;
+        value = 2 * value - 1f;
+        value *= Mathf.Abs(value);
+        dollyRotationSpeed = -value * 180;
     }
 
     public void UpdatePositionInstant() {

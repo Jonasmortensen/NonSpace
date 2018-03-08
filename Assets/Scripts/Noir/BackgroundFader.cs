@@ -21,6 +21,7 @@ public class BackgroundFader : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        
         Vector2 wallOrientation = new Vector2(transform.up.x, transform.up.z);
         Vector2 camOrientation = new Vector2(mainCam.transform.forward.x, mainCam.transform.forward.z);
         float camRotIntensity = Mathf.Abs(Mathf.Sin((GameController.Instance.MainCamera.transform.localRotation.eulerAngles.x - 10) * Mathf.Deg2Rad));
@@ -44,5 +45,6 @@ public class BackgroundFader : MonoBehaviour {
         }
 
         rend.material.SetColor("_EmissionColor", finalColor);
+
     }
 }

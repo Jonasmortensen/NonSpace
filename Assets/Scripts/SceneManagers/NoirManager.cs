@@ -59,7 +59,7 @@ public class NoirManager : MonoBehaviour, ISceneManager {
         rain = transform.GetComponentInChildren<RainController>();
         mainSat = 0.5f;
         mainVal = 1.0f;
-        //lights = GetComponentsInChildren<Light>();
+        lights = GetComponentsInChildren<Light>();
         for(int i = 0; i < canvas.transform.childCount; i++) {
             var bgFader = canvas.transform.GetChild(i).gameObject.AddComponent<BackgroundFader>();
             bgFader.preset = this;
@@ -69,11 +69,11 @@ public class NoirManager : MonoBehaviour, ISceneManager {
 	// Update is called once per frame
 	void Update () {
         UpdateColors();
-        /*
+
         foreach(Light light in lights) {
             light.color = SpotlightColor;
         }
-        */
+
 
         rain.SetEmission(RainAmount);
 	}

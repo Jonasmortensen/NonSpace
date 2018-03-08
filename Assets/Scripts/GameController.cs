@@ -5,8 +5,9 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public Camera MainCamera;
-    public ICameraController controller;
+    public CameraManager cameraManager;
     public GameObject sceneManager;
+    public APC40Controller controller;
 
     void Awake() {
         if (Instance == null) {
@@ -19,7 +20,8 @@ public class GameController : MonoBehaviour {
     }
 
     void Start() {
-        //controller.SetSceneManager(sceneManager.GetComponent<ISceneManager>());
+        controller.SetSceneManager(sceneManager.GetComponent<ISceneManager>());
+        controller.SetCameraManager(cameraManager);
     }
 
     public static GameController Instance { get; private set; }

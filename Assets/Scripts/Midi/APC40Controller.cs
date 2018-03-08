@@ -22,11 +22,14 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
     public float special2;
     public float special3;
     public float special4;
+    public float dollyRotationKnob;
+    public float cameraRotationKnob;
 
 
     // Use this for initialization
     void Start () {
-		
+        cameraRotationKnob = 0.5f;
+        dollyRotationKnob = 0.5f;
 	}
 	
 	// Update is called once per frame
@@ -37,12 +40,16 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
 
         if (camMng != null) {
             ListenCameraInput();
+            ListenCameraKnobs();
         }
+
         if(spawner != null) {
             ListenPlacementInput();
             ListenSpawnInput();
+            UpdateConstantRotation();
         }
         ListenPlaybackInput();
+
         if(sceneManager != null) {
             ListenSliders();
         }
@@ -181,26 +188,53 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 32)) {
             SetCameraLights(CameraMode.FRONTAL);
             camMng.SetCameraMode(CameraMode.FRONTAL);
+            camMng.StartTransition();
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 33)) {
             SetCameraLights(CameraMode.ABOVE);
+            camMng.StartTransition();
             camMng.SetCameraMode(CameraMode.ABOVE);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 34)) {
             SetCameraLights(CameraMode.SIDE);
             camMng.SetCameraMode(CameraMode.SIDE);
+            camMng.StartTransition();
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 35)) {
             SetCameraLights(CameraMode.BELOW);
             camMng.SetCameraMode(CameraMode.BELOW);
+            camMng.StartTransition();
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 37)) {
             SetCameraLights(CameraMode.RESET);
-            camMng.SetCameraMode(CameraMode.FRONTAL);
+            cameraRotationKnob = 0.5f;
+            dollyRotationKnob = 0.5f;
+            camMng.SetDollyRotation(dollyRotationKnob);
+            camMng.SetCameraRotation(cameraRotationKnob);
+            camMng.ResetRotation();
         }
     }
 
-    public void SetCameraLights(CameraMode mode) {
+    private void ListenCameraKnobs() {
+        dollyRotationKnob = MidiInput.GetKnob(MidiChannel.Ch1, 48);
+        cameraRotationKnob = MidiInput.GetKnob(MidiChannel.Ch1, 49);
+    }
+
+    private void UpdateConstantRotation() {
+        if(dollyRotationKnob < 0.49f || dollyRotationKnob > 0.51f) {
+            camMng.SetDollyRotation(dollyRotationKnob);
+        } else {
+            camMng.SetDollyRotation(0.5f);
+        }
+        if (cameraRotationKnob < 0.49f || cameraRotationKnob > 0.51f)
+        {
+            camMng.SetCameraRotation(cameraRotationKnob);
+        } else {
+            camMng.SetCameraRotation(0.5f);
+        }
+    }
+
+    private void SetCameraLights(CameraMode mode) {
         MidiOut.SendNoteOn(MidiChannel.Ch1, 32, 23f);
         MidiOut.SendNoteOn(MidiChannel.Ch1, 33, 23f);
         MidiOut.SendNoteOn(MidiChannel.Ch1, 34, 23f);
