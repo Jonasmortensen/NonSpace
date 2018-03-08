@@ -139,9 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af7324b140f446340af3fd1ffef2341f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transitionTime: 1.5
   viewMode: 0
-  rotationMode: 0
   movementMode: 0
 --- !u!124 &124918830924300436
 Behaviour:
