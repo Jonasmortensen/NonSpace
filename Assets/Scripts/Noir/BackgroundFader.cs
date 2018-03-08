@@ -23,18 +23,9 @@ public class BackgroundFader : MonoBehaviour {
 	void Update () {
         Vector2 wallOrientation = new Vector2(transform.up.x, transform.up.z);
         Vector2 camOrientation = new Vector2(mainCam.transform.forward.x, mainCam.transform.forward.z);
-
-        //TODO: a lot of math!
-
         float camRotIntensity = Mathf.Abs(Mathf.Sin((GameController.Instance.MainCamera.transform.localRotation.eulerAngles.x - 10) * Mathf.Deg2Rad));
         Debug.Log("intensity: " + camRotIntensity);
-        /*
-        if(camRotIntensity > 10) {
-            camRotIntensity = camRotIntensity * 0.0125f;
-        } else if(camRotIntensity > 260) {
-            camRotIntensity = Mathf.Abs(camRotIntensity) * 0.01f;
-        }
-        */
+
         float camRelativeIntensity = - Vector2.Dot(wallOrientation.normalized, camOrientation.normalized);
         camRelativeIntensity = (0.5f + camRelativeIntensity) * 0.6f;
         camRelativeIntensity = Mathf.Max(camRelativeIntensity, 0);
