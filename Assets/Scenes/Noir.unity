@@ -10763,13 +10763,13 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 854960768}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1eed1d9cbe64423499f1fefc0ce50417, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Resolution: 1
-  DefaultSpotCookie: {fileID: 0}
+  DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
 --- !u!1 &895443572
 GameObject:
   m_ObjectHideFlags: 0
@@ -25118,7 +25118,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MainCamera: {fileID: 854960773}
-  controller: {fileID: 1931694663}
   sceneManager: {fileID: 2067893615}
 --- !u!4 &1333699954
 Transform:
@@ -25132,6 +25131,47 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1347329784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 1347329786}
+  - component: {fileID: 1347329785}
+  m_Layer: 0
+  m_Name: KeyboardController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1347329785
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1347329784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fd08f9078307a448b5646a6616b2b56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  camController: {fileID: 1467525098}
+--- !u!4 &1347329786
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1347329784}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1396294232
 GameObject:
@@ -25255,6 +25295,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1841021881116694, guid: 2eb46232ce173b4439b80f8311f9264c,
     type: 2}
   m_PrefabInternal: {fileID: 70568457}
+--- !u!114 &1467525098 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114860702100261490, guid: 2eb46232ce173b4439b80f8311f9264c,
+    type: 2}
+  m_PrefabInternal: {fileID: 70568457}
+  m_Script: {fileID: 11500000, guid: af7324b140f446340af3fd1ffef2341f, type: 3}
 --- !u!114 &1467525100
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25283,7 +25329,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!108 &1505884056
 Light:
   m_ObjectHideFlags: 0
@@ -25517,7 +25563,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1874952096
 Transform:
   m_ObjectHideFlags: 0
@@ -25608,7 +25654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1883873245
 Transform:
   m_ObjectHideFlags: 0
@@ -25769,7 +25815,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1931694663
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25967,7 +26013,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e081212cff2f11f42a8b6d9d42563f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasColor: {r: 0, g: 0, b: 0, a: 0}
+  CanvasColor: {r: 0.8602941, g: 0.45544982, b: 0.45544982, a: 0}
   SpotlightColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!4 &2067893617
 Transform:
