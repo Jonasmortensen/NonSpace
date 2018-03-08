@@ -16,26 +16,37 @@ public class BackgroundFader : MonoBehaviour {
 	void Start () {
         glow = transform.GetComponentInChildren<Light>();
         rend = GetComponent<Renderer>();
+        mainCam = GameController.Instance.MainCamera;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        Transform cam = GameController.Instance.MainCamera.transform;
         Vector2 wallOrientation = new Vector2(transform.up.x, transform.up.z);
-        Vector2 camOrientation = new Vector2(cam.forward.x, cam.forward.z);
+        Vector2 camOrientation = new Vector2(mainCam.transform.forward.x, mainCam.transform.forward.z);
 
+        //TODO: a lot of math!
 
+        float camRotIntensity = Mathf.Abs(Mathf.Sin((GameController.Instance.MainCamera.transform.localRotation.eulerAngles.x - 10) * Mathf.Deg2Rad));
+        Debug.Log("intensity: " + camRotIntensity);
+        /*
+        if(camRotIntensity > 10) {
+            camRotIntensity = camRotIntensity * 0.0125f;
+        } else if(camRotIntensity > 260) {
+            camRotIntensity = Mathf.Abs(camRotIntensity) * 0.01f;
+        }
+        */
         float camRelativeIntensity = - Vector2.Dot(wallOrientation.normalized, camOrientation.normalized);
         camRelativeIntensity = (0.5f + camRelativeIntensity) * 0.6f;
         camRelativeIntensity = Mathf.Max(camRelativeIntensity, 0);
-        camRelativeIntensity = Smoother.VerySmooth(camRelativeIntensity);
+        camRelativeIntensity = camRelativeIntensity * (1 - camRotIntensity);
+        camRelativeIntensity = Smoother.VerySmooth(camRelativeIntensity + camRotIntensity);
         glow.intensity = camRelativeIntensity * 5;
         glow.color = preset.GetMainColor();
 
         Color finalColor = preset.GetMainColor() * Mathf.LinearToGammaSpace(camRelativeIntensity);
 
 
-        if (finalColor.r == 0 && finalColor.g == 0 && finalColor.b == 0) {
+        if (finalColor.r < 0.0001 && finalColor.g < 0.0001 && finalColor.b < 0.0001) {
             rend.enabled = false;
         } else if(rend.enabled == false) {
             rend.enabled = true;
