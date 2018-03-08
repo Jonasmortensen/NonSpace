@@ -6,20 +6,15 @@ public enum CameraMode {
     FRONTAL, ABOVE, SIDE, BELOW, RESET
 }
 
-public enum CameraRotationMode {
-    IDLE, ROTATE_DOLLY, ROTATE_CAM
-}
-
 public enum CameraMovementnMode {
     IDLE, FORWARDS, BACKWARDS
 }
 
 public class CameraManager : MonoBehaviour {
-    public float transitionTime;
+    private float transitionTime = 1.5f;
 
     private Camera mainCam;
     public CameraMode viewMode;
-    public CameraRotationMode rotationMode;
     public CameraMovementnMode movementMode;
 
     //General transition vars
@@ -33,15 +28,9 @@ public class CameraManager : MonoBehaviour {
     private Quaternion startAngle;
     private Quaternion goalAngle;
 
-    //For turntable rotation
-    private float goalDollyRotation;
-    private float startDollyRotation;
-    private float currentDollyRotation;
-
-    //For camera z rotation
-    private float goalCamRotation;
-    private float startCamRotation;
-    private float currentCamRotation;
+    //For constant rotation
+    private float dollyRotationSpeed;
+    private float cameraRotationSpeed;
 
     //For resetting rotation
     private Quaternion dollyStartRot;
@@ -56,35 +45,41 @@ public class CameraManager : MonoBehaviour {
         if(mainCam == null) {
             throw new System.NullReferenceException("CameraController needs a child camera");
         }
-        rotationMode = CameraRotationMode.IDLE;
     }
-	
-	// Update is called once per frame
-	void Update () {
-        if (inTransition) {
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (inTransition)
+        {
             elapsedTime += Time.deltaTime;
             float t = elapsedTime / transitionTime;
             t = t * t * t * (t * (6f * t - 15f) + 10f);
 
-            if((transitionType & 1) > 0) {
+            if ((transitionType & 1) > 0)
+            {
                 mainCam.transform.localPosition = Vector3.Lerp(startPos, goalPos, t);
                 mainCam.transform.localRotation = Quaternion.Lerp(startAngle, goalAngle, t);
             }
-            if((transitionType & 2) > 0) {
-                currentDollyRotation = Mathf.Lerp(startDollyRotation, goalDollyRotation, t);
-                currentCamRotation = Mathf.Lerp(startCamRotation, goalCamRotation, t);
-            }
-            if((transitionType & 4) > 0) {
+
+            if ((transitionType & 4) > 0)
+            {
                 transform.rotation = Quaternion.Lerp(dollyStartRot, dollyGoalRot, t);
             }
 
-            if (elapsedTime > transitionTime) {
+            if (elapsedTime > transitionTime)
+            {
                 inTransition = false;
             }
         }
 
-        transform.Rotate(Vector3.up * Time.deltaTime * currentDollyRotation);
-        mainCam.transform.Rotate(Vector3.forward * Time.deltaTime * currentCamRotation);
+        if (cameraRotationSpeed > 0.0001 || cameraRotationSpeed < -0.0001) {
+            mainCam.transform.Rotate(Vector3.forward * Time.deltaTime * cameraRotationSpeed);
+        }
+
+        if(dollyRotationSpeed > 0.001 || dollyRotationSpeed < -0.0001) {
+            transform.Rotate(Vector3.up * Time.deltaTime * dollyRotationSpeed);
+        }
     }
 
     public void SetCameraMode(CameraMode _viewMode) {
@@ -115,30 +110,16 @@ public class CameraManager : MonoBehaviour {
         transitionType = 1;
     }
 
-    public void SetRotationMode(CameraRotationMode _rotMode) {
-        rotationMode = _rotMode;
-        startDollyRotation = currentDollyRotation;
-        startCamRotation = currentCamRotation;
-        transitionType = 2;
-        switch (_rotMode) {
-            case CameraRotationMode.ROTATE_DOLLY:
-                goalDollyRotation -= 15;
-                break;
-            case CameraRotationMode.ROTATE_CAM:
-                goalCamRotation += 15;
-                break;
-            case CameraRotationMode.IDLE:
-                if (goalDollyRotation == 0 && goalCamRotation == 0) {
-                    ResetRotation();
-                    currentCamRotation = 0;
-                    currentDollyRotation = 0;
-                }
-                else {
-                    goalDollyRotation = 0;
-                    goalCamRotation = 0;
-                }
-                break;
-        }
+    //Based on 0 - 1
+    public void SetCameraRotation(float value) {
+        value = value - 0.5f;
+        cameraRotationSpeed = value * 360;
+    }
+
+    //Based on 0 - 1
+    public void SetDollyRotation(float value) {
+        value = value - 0.5f;
+        dollyRotationSpeed = value * 360;
     }
 
     public void UpdatePositionInstant() {
@@ -151,10 +132,11 @@ public class CameraManager : MonoBehaviour {
     public void ResetRotation() {
         dollyStartRot = transform.rotation;
         dollyGoalRot = Quaternion.identity;
-        //camStartRot = mainCam.transform.rotation;
-        //camGoalRot = Quaternion.identity;
+        camStartRot = mainCam.transform.rotation;
+        camGoalRot = Quaternion.identity;
         SetCameraMode(viewMode);
         transitionType |= 4;
+        StartTransition();
         Debug.Log("Resetting!");
     }
 

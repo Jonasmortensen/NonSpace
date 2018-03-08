@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class KeyboardInput : MonoBehaviour{
-    public CameraManager camController;
+    public CameraManager camManager;
     //public Spawner spawner;
 
+    private float camRotVal;
+    private float dollyRotVal;
 
     // Use this for initialization
     void Start () {
-		
+        camRotVal = 0.5f;
+        dollyRotVal = 0.5f;
 	}
 	
 	// Update is called once per frame
@@ -18,26 +21,55 @@ public class KeyboardInput : MonoBehaviour{
 
         if(Input.GetKeyDown(KeyCode.Alpha1)) {
             //Frontal
-            camController.SetCameraMode(CameraMode.FRONTAL);
-            camController.StartTransition();
+            camManager.SetCameraMode(CameraMode.FRONTAL);
+            camManager.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha2)) {
             //Above
-            camController.SetCameraMode(CameraMode.ABOVE);
-            camController.StartTransition();
+            camManager.SetCameraMode(CameraMode.ABOVE);
+            camManager.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha3)) {
             //Side
-            camController.SetCameraMode(CameraMode.SIDE);
-            camController.StartTransition();
+            camManager.SetCameraMode(CameraMode.SIDE);
+            camManager.StartTransition();
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)) {
             //Below
-            camController.SetCameraMode(CameraMode.BELOW);
-            camController.StartTransition();
+            camManager.SetCameraMode(CameraMode.BELOW);
+            camManager.StartTransition();
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) {
-            //Reset rotation
+        if (Input.GetKeyDown(KeyCode.Alpha5)) {
+            camRotVal = 0.5f;
+            dollyRotVal = 0.5f;
+            camManager.SetDollyRotation(dollyRotVal);
+            camManager.SetCameraRotation(camRotVal);
+            camManager.ResetRotation();
+        }
+
+        if(Input.GetKeyDown(KeyCode.O)) {
+            camRotVal += 0.1f;
+            Mathf.Clamp(camRotVal, 0.0f, 1.0f);
+            camManager.SetCameraRotation(camRotVal);
+        }
+
+        if(Input.GetKeyDown(KeyCode.P)) {
+            camRotVal += -0.1f;
+            Mathf.Clamp(camRotVal, 0.0f, 1.0f);
+            camManager.SetCameraRotation(camRotVal);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            dollyRotVal += 0.1f;
+            Mathf.Clamp(dollyRotVal, 0.0f, 1.0f);
+            camManager.SetDollyRotation(dollyRotVal);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Alpha0))
+        {
+            dollyRotVal += -0.1f;
+            Mathf.Clamp(dollyRotVal, 0.0f, 1.0f);
+            camManager.SetDollyRotation(dollyRotVal);
         }
         /*
         //PLAYBACK
