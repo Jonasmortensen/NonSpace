@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameController : MonoBehaviour {
 
     public Camera MainCamera;
-    public APC40Controller controller;
+    public ICameraController controller;
     public GameObject sceneManager;
 
     void Awake() {
@@ -19,7 +19,7 @@ public class GameController : MonoBehaviour {
     }
 
     void Start() {
-        controller.SetSceneManager(sceneManager.GetComponent<ISceneManager>());
+        //controller.SetSceneManager(sceneManager.GetComponent<ISceneManager>());
     }
 
     public static GameController Instance { get; private set; }
