@@ -9,12 +9,9 @@ public enum PlacementMode {
 public class Spawner : MonoBehaviour {
 
     public GameObject prefab;
-    public float spawnTime;
     public int objectLimit;
     public PlacementMode spawnMode;
 
-    //private List<GameObject> live;
-    //private List<GameObject> poolList;
     private GameObject modelPool;
     private GameObject liveModels;
     private int liveCount;
@@ -47,8 +44,7 @@ public class Spawner : MonoBehaviour {
 
     public bool spawn(SpawnDirection spawnDirection = SpawnDirection.CENTER) {
         if(liveCount >= objectLimit) {
-            liveCount = objectLimit;
-            return false;
+            kill();
         }
 
         Transform model = modelPool.transform.GetChild(0);
@@ -76,6 +72,6 @@ public class Spawner : MonoBehaviour {
     }
 
     public void Fill() {
-        while (spawn());
+        while (spawn()) {}
     }
 }
