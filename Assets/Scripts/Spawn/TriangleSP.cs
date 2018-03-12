@@ -5,8 +5,6 @@ using UnityEngine;
 
 //This is hardcoded to 15!
 public class TriangleSP : ISpawnProfile {
-    //THIS IS
-
     private int models;
     private int maxModels;
     private int numOfRows;
