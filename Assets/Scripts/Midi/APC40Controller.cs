@@ -361,15 +361,15 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
     private void ListenSpawnInput() {
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 8)) {
             PressSpawnLight(SpawnDirection.LEFT);
-            spawner.spawn(SpawnDirection.LEFT);
+            spawner.Spawn(SpawnDirection.LEFT);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 9)) {
             PressSpawnLight(SpawnDirection.CENTER);
-            spawner.spawn(SpawnDirection.CENTER);
+            spawner.Spawn(SpawnDirection.CENTER);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 10)) {
             PressSpawnLight(SpawnDirection.RIGHT);
-            spawner.spawn(SpawnDirection.RIGHT);
+            spawner.Spawn(SpawnDirection.RIGHT);
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 11)) {
             PressSpawnLight(SpawnDirection.FILL);

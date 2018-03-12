@@ -42,10 +42,10 @@ public class Spawner : MonoBehaviour {
         spawnProfile = new TriangleSP(5, 15);
     }
 
-    public bool spawn(SpawnDirection spawnDirection = SpawnDirection.CENTER) {
+    public bool Spawn(SpawnDirection spawnDirection = SpawnDirection.CENTER) {
         Vector3? nextPos = spawnProfile.GetNextPosition(spawnDirection);
         if(liveCount >= objectLimit || nextPos == null) {
-            kill();
+            Kill();
             nextPos = spawnProfile.GetNextPosition(spawnDirection);
         }
 
@@ -59,7 +59,7 @@ public class Spawner : MonoBehaviour {
         return true;
     }
 
-    public bool kill() {
+    public bool Kill() {
         if(liveCount <= 0) {
             liveCount = 0;
             return false;
@@ -71,11 +71,11 @@ public class Spawner : MonoBehaviour {
     }
 
     public void Clear() {
-        while(kill());
+        while(Kill()){}
         spawnProfile = new TriangleSP(5, 15);
     }
 
     public void Fill() {
-        while (spawn()) {}
+        while (Spawn()) {}
     }
 }
