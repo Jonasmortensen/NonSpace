@@ -43,12 +43,16 @@ public class Spawner : MonoBehaviour {
     }
 
     public bool spawn(SpawnDirection spawnDirection = SpawnDirection.CENTER) {
-        if(liveCount >= objectLimit) {
+        Vector3? nextPos = spawnProfile.GetNextPosition(spawnDirection);
+        if(liveCount >= objectLimit || nextPos == null) {
             kill();
+            nextPos = spawnProfile.GetNextPosition(spawnDirection);
         }
 
+
         Transform model = modelPool.transform.GetChild(0);
-        model.position = spawnProfile.GetNextPosition(spawnDirection);
+        model.position = (Vector3) spawnProfile.GetNextPosition(spawnDirection);
+
         model.transform.parent = liveModels.transform;
         liveCount++;
 

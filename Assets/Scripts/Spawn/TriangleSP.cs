@@ -27,10 +27,9 @@ public class TriangleSP : ISpawnProfile {
 
 
     //TODO: THIS IS PRETTY SLOW
-    public Vector3 GetNextPosition(SpawnDirection direction) {
+    public Vector3? GetNextPosition(SpawnDirection direction) {
         if(models >= maxModels) {
-            //Fix this case
-            return Vector3.zero;
+            return null;
         }
         int i = 0;
         int indexResult = CenterOrder[i];
