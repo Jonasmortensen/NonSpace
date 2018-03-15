@@ -74,6 +74,6 @@ public class TriangleSP : ISpawnProfile {
         int column = i - triangleNumber;
         occupations[i] = true;
 
-        return new Vector3((0.5f * -row + column) * size, 2, (row - (numOfRows / 2)) * size);
+        return new Vector3((0.5f * -row + column) * size, 2.6f, (row - (numOfRows / 2)) * size);
     }
 }
