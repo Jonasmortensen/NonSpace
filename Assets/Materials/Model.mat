@@ -62,7 +62,7 @@ Material:
     - _CameraNearFadeDistance: 1
     - _Cull: 2
     - _CutHeight: 1
-    - _Cutoff: 0.38
+    - _Cutoff: 0
     - _DetailNormalMapScale: 1
     - _DistortionBlend: 0.5
     - _DistortionEnabled: 0

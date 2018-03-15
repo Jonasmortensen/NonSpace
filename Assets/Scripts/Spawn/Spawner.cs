@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -52,7 +53,11 @@ public class Spawner : MonoBehaviour {
 
         Transform model = modelPool.transform.GetChild(0);
         model.position = nextPos;
-
+        SpawnAnimator currentAnimator = model.GetComponent<SpawnAnimator>();
+        if (currentAnimator != null) {
+            Destroy(currentAnimator);
+        }
+        model.gameObject.AddComponent<SpawnAnimator>().moveIn();
         model.transform.parent = liveModels.transform;
         liveCount++;
 
@@ -64,14 +69,25 @@ public class Spawner : MonoBehaviour {
             liveCount = 0;
             return false;
         }
+
         Transform toKill = liveModels.transform.GetChild(liveCount-1);
-        toKill.parent = modelPool.transform;
+        SpawnAnimator currentAnimator = toKill.GetComponent<SpawnAnimator>();
+        if (currentAnimator != null) {
+            Destroy(currentAnimator);
+        }
+
+        Action callback = delegate () {
+            toKill.parent = modelPool.transform;
+        };
         liveCount--;
+        toKill.gameObject.AddComponent<SpawnAnimator>().moveOut(callback);
         return true;
     }
 
     public void Clear() {
-        while(Kill()){}
+        for(int i = liveCount; i > 0; i--) {
+            Kill();
+        }
         spawnProfile = new TriangleSP(3, 15);
     }
 
