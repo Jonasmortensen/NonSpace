@@ -39,19 +39,19 @@ public class Spawner : MonoBehaviour {
             currentModel.transform.parent = modelPool.transform;
         }
 
-        spawnProfile = new TriangleSP(5, 15);
+        spawnProfile = new TriangleSP(3, 15);
     }
 
     public bool Spawn(SpawnDirection spawnDirection = SpawnDirection.CENTER) {
-        Vector3? nextPos = spawnProfile.GetNextPosition(spawnDirection);
-        if(liveCount >= objectLimit || nextPos == null) {
+        Vector3 nextPos = spawnProfile.GetNextPosition(spawnDirection);
+        
+        if(liveCount >= objectLimit) {
             Kill();
-            nextPos = spawnProfile.GetNextPosition(spawnDirection);
         }
-
+        
 
         Transform model = modelPool.transform.GetChild(0);
-        model.position = (Vector3) spawnProfile.GetNextPosition(spawnDirection);
+        model.position = nextPos;
 
         model.transform.parent = liveModels.transform;
         liveCount++;
@@ -72,10 +72,12 @@ public class Spawner : MonoBehaviour {
 
     public void Clear() {
         while(Kill()){}
-        spawnProfile = new TriangleSP(5, 15);
+        spawnProfile = new TriangleSP(3, 15);
     }
 
     public void Fill() {
-        while (Spawn()) {}
+        for (int i = liveCount; i < objectLimit; i++) {
+            Spawn();
+        }
     }
 }

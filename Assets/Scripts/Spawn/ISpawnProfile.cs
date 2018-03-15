@@ -7,5 +7,7 @@ public enum SpawnDirection {
 }
 
 public interface ISpawnProfile {
-    Vector3? GetNextPosition(SpawnDirection direction);
+    Vector3 GetNextPosition(SpawnDirection direction);
+    void decrementModels();
+    void incrementModels();
 }

@@ -23,14 +23,21 @@ public class TriangleSP : ISpawnProfile {
         occupations = new bool[modelCount];
     }
 
+    public void decrementModels() {
+        models--;
+    }
+
+    public void incrementModels() {
+        models++;
+    }
 
     //TODO: THIS IS PRETTY SLOW
-    public Vector3? GetNextPosition(SpawnDirection direction) {
+    public Vector3 GetNextPosition(SpawnDirection direction) {
         if(models >= maxModels) {
-            return null;
+            occupations = new bool[maxModels];
+            models = 0;
         }
-        int i = 0;
-        int indexResult = CenterOrder[i];
+        int indexResult;
         int[] order;
         switch (direction) {
             case SpawnDirection.CENTER:
@@ -46,21 +53,22 @@ public class TriangleSP : ISpawnProfile {
                 order = CenterOrder;
                 break;
         }
-        indexResult = order[i];
 
+        int i = 0;
+        indexResult = order[i];
         while(occupations[indexResult]) {
             i++;
             indexResult = order[i];
         }
 
         Vector3 pos = indexToPosition(indexResult);
-
         models++;
         return pos;
     }
 
 
     private Vector3 indexToPosition(int i) {
+        Debug.Log("Index pos: " + i);
         int row = (int) ((-1 + Mathf.Sqrt(1 + 8 * i)) / 2);
         int triangleNumber = (row + 1) * (row) / 2;
         int column = i - triangleNumber;

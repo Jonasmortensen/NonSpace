@@ -18,7 +18,8 @@ public class RandomSP : ISpawnProfile
         xStep = _size.x / max;
     }
 
-    public Vector3? GetNextPosition(SpawnDirection direction) {
+    public Vector3 GetNextPosition(SpawnDirection direction) {
+        /*
         float z = Random.Range(0, size.y);
         float x = 0;
         switch (direction) {
@@ -36,6 +37,15 @@ public class RandomSP : ISpawnProfile
             default:
                 break;
         }
-        return null;
+        */
+        return Vector3.zero;
+    }
+
+    public void decrementModels() {
+        models--;
+    }
+
+    public void incrementModels() {
+        models++;
     }
 }
