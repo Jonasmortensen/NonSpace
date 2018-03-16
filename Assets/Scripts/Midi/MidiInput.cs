@@ -111,7 +111,7 @@ public class MidiInput : MonoBehaviour
     {
         var cs = instance.channelArray [(int)channel];
         if (cs.knobMap.ContainsKey (knobNumber)) {
-            return cs.knobMap [knobNumber].filteredValue;
+            return cs.knobMap[knobNumber].realtimeValue;
         } else {
             return 0.0f;
         }

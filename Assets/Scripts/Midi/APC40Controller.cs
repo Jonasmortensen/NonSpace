@@ -25,11 +25,13 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
     public float dollyRotationKnob;
     public float cameraRotationKnob;
 
+    public float dollyValAtReset;
+    public float camValAtReset;
+    public bool dollyReset;
+    public bool cameraReset;
 
     // Use this for initialization
     void Start () {
-        cameraRotationKnob = 0.5f;
-        dollyRotationKnob = 0.5f;
 	}
 	
 	// Update is called once per frame
@@ -41,12 +43,12 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
         if (camMng != null) {
             ListenCameraInput();
             ListenCameraKnobs();
+            UpdateConstantRotation();
         }
 
         if(spawner != null) {
             ListenPlacementInput();
             ListenSpawnInput();
-            UpdateConstantRotation();
         }
         ListenPlaybackInput();
 
@@ -167,11 +169,6 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
         ResetKnobs();
     }
 
-    private void ResetKnobs() {
-        MidiOut.SendControlChange(MidiChannel.Ch1, 0x30, 63);
-        MidiOut.SendControlChange(MidiChannel.Ch1, 0x31, 63);
-        MidiOut.SendControlChange(MidiChannel.Ch1, 0x32, 1);
-    }
 
     public void TurnOffLights() {
         for (int i = 0; i < 39; i++) {
@@ -207,12 +204,18 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
         }
         if (MidiInput.GetKeyDown(MidiChannel.Ch1, 37)) {
             SetCameraLights(CameraMode.RESET);
-            cameraRotationKnob = 0.5f;
-            dollyRotationKnob = 0.5f;
-            camMng.SetDollyRotation(dollyRotationKnob);
-            camMng.SetCameraRotation(cameraRotationKnob);
             camMng.ResetRotation();
         }
+    }
+
+    private void ResetKnobs() {
+        MidiOut.SendControlChange(MidiChannel.Ch1, 0x30, 63);
+        MidiOut.SendControlChange(MidiChannel.Ch1, 0x31, 63);
+        MidiOut.SendControlChange(MidiChannel.Ch1, 0x32, 1);
+        dollyValAtReset = dollyRotationKnob;
+        camValAtReset = cameraRotationKnob;
+        dollyReset = true;
+        cameraReset = true;
     }
 
     private void ListenCameraKnobs() {
@@ -221,17 +224,35 @@ public class APC40Controller : MonoBehaviour, ICameraController, ISpawnControlle
     }
 
     private void UpdateConstantRotation() {
-        if(dollyRotationKnob < 0.49f || dollyRotationKnob > 0.51f) {
+
+        if (!dollyReset && (dollyRotationKnob < 0.49f || dollyRotationKnob > 0.51f)) {
             camMng.SetDollyRotation(dollyRotationKnob);
-        } else {
+        }
+        else {
+            if (!equalFloat(dollyValAtReset, dollyRotationKnob) && dollyReset) {
+                Debug.Log("Releasing camera!");
+                dollyReset = false;
+            }
+
             camMng.SetDollyRotation(0.5f);
         }
-        if (cameraRotationKnob < 0.49f || cameraRotationKnob > 0.51f)
+
+        if (!cameraReset && (cameraRotationKnob < 0.49f || cameraRotationKnob > 0.51f))
         {
             camMng.SetCameraRotation(cameraRotationKnob);
         } else {
+            if (!equalFloat(camValAtReset, cameraRotationKnob) && cameraReset) {
+                Debug.Log("Releasing camera!");
+                cameraReset = false;
+            }
+
             camMng.SetCameraRotation(0.5f);
         }
+        
+    }
+
+    private static bool equalFloat(float a, float b) {
+        return Mathf.Abs(b - a) < 0.001;
     }
 
     private void SetCameraLights(CameraMode mode) {

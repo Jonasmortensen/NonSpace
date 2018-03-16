@@ -23,6 +23,7 @@ GameObject:
   - component: {fileID: 124918830924300436}
   - component: {fileID: 81865351639855200}
   - component: {fileID: 114276830739300730}
+  - component: {fileID: 114982657801684160}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -39,6 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4230898736903094}
   - component: {fileID: 114860702100261490}
+  - component: {fileID: 114289073831827598}
   m_Layer: 0
   m_Name: Dolly
   m_TagString: Untagged
@@ -127,7 +129,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 15f81cb52a76ba14598f010578203541, type: 2}
+  profile: {fileID: 11400000, guid: 216f0583e1097ef42b3f79798e912ac1, type: 2}
+--- !u!114 &114289073831827598
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1841021881116694}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1d97ec2b85faa2345974c4306af7b713, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 15
 --- !u!114 &114860702100261490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -141,6 +155,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   viewMode: 0
   movementMode: 0
+--- !u!114 &114982657801684160
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1719162925263720}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1eed1d9cbe64423499f1fefc0ce50417, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Resolution: 1
+  DefaultSpotCookie: {fileID: 2800000, guid: 5157bf6d690b6df458f6c0ce0c06d329, type: 3}
 --- !u!124 &124918830924300436
 Behaviour:
   m_ObjectHideFlags: 1

@@ -9,48 +9,49 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1104984192519158}
+  m_RootGameObject: {fileID: 1382171305884376}
   m_IsPrefabParent: 1
---- !u!1 &1104984192519158
+--- !u!1 &1382171305884376
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4124146581915238}
-  - component: {fileID: 114470523396024192}
+  - component: {fileID: 4293450160020806}
+  - component: {fileID: 114240231674838414}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: GameController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4124146581915238
+--- !u!4 &4293450160020806
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1104984192519158}
+  m_GameObject: {fileID: 1382171305884376}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.7848468, y: 4.80552, z: -0.95812654}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114470523396024192
+--- !u!114 &114240231674838414
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1104984192519158}
+  m_GameObject: {fileID: 1382171305884376}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1dbd78bef6727b64492c615d659d3864, type: 3}
+  m_Script: {fileID: 11500000, guid: a3f2e6fd722eab64182852debedfe82e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefab: {fileID: 1122493674564120, guid: 5375851655f5dfe43aa6326895ac386f, type: 2}
-  objectLimit: 16
-  spawnMode: 0
+  MainCamera: {fileID: 0}
+  cameraManager: {fileID: 0}
+  sceneManager: {fileID: 0}
+  controller: {fileID: 0}

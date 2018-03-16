@@ -139,6 +139,8 @@ public class CameraManager : MonoBehaviour {
         SetCameraMode(viewMode);
         transitionType |= 4;
         StartTransition();
+        dollyRotationSpeed = 0;
+        cameraRotationSpeed = 0;
         Debug.Log("Resetting!");
     }
 
