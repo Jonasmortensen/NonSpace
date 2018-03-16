@@ -33,7 +33,7 @@ public class SpawnAnimator : MonoBehaviour {
 
     public void moveIn() {
         if(mat == null) {
-            mat = GetComponent<Renderer>().material;
+            mat = transform.GetChild(0).GetComponent<Renderer>().material;
         }
         start = 0;
         setAniamationStep(start);
@@ -44,7 +44,7 @@ public class SpawnAnimator : MonoBehaviour {
 
     public void moveOut(Action _callback) {
         if (mat == null) {
-            mat = GetComponent<Renderer>().material;
+            mat = transform.GetChild(0).GetComponent<Renderer>().material;
         }
         start = 1;
         setAniamationStep(start);
